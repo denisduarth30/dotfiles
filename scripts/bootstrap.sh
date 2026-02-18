@@ -57,9 +57,9 @@ backup_file "$HOME/.zshrc"
 backup_file "$HOME/.zsh_aliases"
 backup_file "$HOME/.zsh_functions"
 
-cp dotfiles/zsh/.zshrc "$HOME/.zshrc"
-cp dotfiles/zsh/.zsh_aliases "$HOME/.zsh_aliases"
-cp dotfiles/zsh/.zsh_functions "$HOME/.zsh_functions"
+cp -i dotfiles/zsh/.zshrc "$HOME/.zshrc"
+cp -i dotfiles/zsh/.zsh_aliases "$HOME/.zsh_aliases"
+cp -i dotfiles/zsh/.zsh_functions "$HOME/.zsh_functions"
 
 echo "Definindo Zsh como shell padrão..."
 if command -v zsh >/dev/null; then
