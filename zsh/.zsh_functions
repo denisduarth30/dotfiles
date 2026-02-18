@@ -1,0 +1,13 @@
+full_uninstall(){
+  uninstall "$1" && fullclean
+}
+
+update_system(){
+  sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
+  flatpak update
+
+  if [[ -d "$HOME/.oh-my-zsh" ]]; then
+    echo "➡ Atualizando Oh My Zsh..."
+    omz update
+  fi
+}

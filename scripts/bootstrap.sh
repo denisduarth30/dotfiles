@@ -12,10 +12,6 @@ sudo apt update && sudo apt upgrade -y
 echo "Adicionando PPA fastfetch..."
 sudo add-apt-repository -y ppa:zhangsongcui3371/fastfetch
 
-echo "Adicionando PPA ULauncher..."
-sudo add-apt-repository -y universe
-sudo add-apt-repository -y ppa:agornostal/ulauncher
-
 echo "Segundo update para os pacotes PPA"
 sudo apt update
 
@@ -31,32 +27,39 @@ APT_PROGRAMS=(
   fastfetch
   zsh
   bat
-  ulauncher
   mangohud
-  gamemoderun
+  gamemode
   fonts-cascadia-code
   fonts-firacode
   fonts-inconsolata
   zram-tools
+  eza
 )
 
 echo "Instalando pacotes APT..."
 sudo apt install -y "${APT_PROGRAMS[@]}"
 
-echo "Instalando Brave..."
-curl -fsS https://dl.brave.com/install.sh | sh
+echo "Definindo Swappiness em 10..."
+if ! grep -q "vm.swappiness" /etc/sysctl.conf; then
+  echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.conf
+  sudo sysctl -p
+fi
 
-echo "Instalando Zed..."
-curl -fsS https://zed.dev/install.sh | sh
+backup_file() {
+  if [ -f "$1" ]; then
+      mv "$1" "$1.bak.$(date +%s)"
+  fi
+}
 
-echo "Instalando Rust..."
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+echo "Instalando dotfiles do Zsh..."
 
-echo "Instalando NVM + Node LTS..."
-curl -fsS https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-export NVM_DIR="$HOME/.nvm"
-source "$NVM_DIR/nvm.sh"
-nvm install --lts
+backup_file "$HOME/.zshrc"
+backup_file "$HOME/.zsh_aliases"
+backup_file "$HOME/.zsh_functions"
+
+cp dotfiles/zsh/.zshrc "$HOME/.zshrc"
+cp dotfiles/zsh/.zsh_aliases "$HOME/.zsh_aliases"
+cp dotfiles/zsh/.zsh_functions "$HOME/.zsh_functions"
 
 echo "Definindo Zsh como shell padrão..."
 if command -v zsh >/dev/null; then
@@ -64,41 +67,6 @@ if command -v zsh >/dev/null; then
 else
   echo "Zsh não encontrado!"
 fi
-
-echo "Gerando arquivo .zsh_aliases e configurando aliases..."
-ALIAS_FILE="$HOME/.zsh_aliases"
-
-ALIASES=(
-  "alias ls='ls -lah'"
-  "alias updt='sudo apt update && sudo apt upgrade'"
-  "alias disks='df -h'"
-  "alias ff='fastfetch'"
-  "alias bios='sudo systemctl reboot --firmware-setup'"
-  "alias cat='batcat'"
-  "alias mkdir='mkdir -pv'"
-  "alias touch='touch -v'"
-  "alias fullclean='sudo apt autoremove --purge && sudo apt autoclean && sudo apt clean'"
-)
-
-touch "$ALIAS_FILE"
-sed -i -e '$a\' "$ALIAS_FILE"
-
-for a in "${ALIASES[@]}"; do
-  grep -Fxq "$a" "$ALIAS_FILE" || echo "$a" >> "$ALIAS_FILE"
-done
-
-echo "Configurando .zshrc para carregar .zsh_aliases..."
-ZSHRC="$HOME/.zshrc"
-LINE='[ -f ~/.zsh_aliases ] && source ~/.zsh_aliases'
-touch "$ZSHRC"
-grep -qxF "$LINE" "$ZSHRC" || echo "$LINE" >> "$ZSHRC"
-
-echo "Instalando OhMyZsh..."
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-echo "Definindo Swappiness em 10 e resetando /etc/sysctl.conf..."
-echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.conf
-sudo sysctl -p
 
 echo "Configuração aplicada. Abra um novo terminal ou execute: source ~/.zshrc"
 echo "Setup finalizado!"
