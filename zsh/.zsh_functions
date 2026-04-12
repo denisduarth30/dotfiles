@@ -1,13 +1,68 @@
+#!/bin/bash
+
 full_uninstall(){
   uninstall "$1" && fullclean
 }
 
-update_system(){
-  sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
-  flatpak update
+full_update(){
+	echo "Atualizando sistema..."	
+	sudo apt update && sudo apt upgrade -y
 
-  if [[ -d "$HOME/.oh-my-zsh" ]]; then
-    echo "➡ Atualizando Oh My Zsh..."
-    omz update
+	echo "Atualizando flatpaks..."
+	flatpak update
+
+	if [[ -d "$HOME/.oh-my-zsh" ]]; then
+	  echo "➡ Atualizando Oh My Zsh..."
+	  omz update
+	fi
+
+	echo "Atualizando TLDR..."
+	tldr --update
+}
+
+zip2chd(){
+	~/.scripts/zip2chd.sh "$1"
+}
+
+dwd_mp3_audio(){
+	base_dir="/home/$USER/Músicas"
+    url="$1"
+
+    yt-dlp \ 
+    -x \
+    --audio-format mp3 \
+    --no-overwrites \
+    --ignore-errors \
+    --embed-metadata \
+    --embed-thumbnail \
+    --add-metadata \
+    --output "$base_dir/%(title)s.%(ext)s" \
+    "$url"
+}
+
+dwd_mp3_playlist(){
+  url="$1"
+
+  if [ -z "$url" ]; then
+    echo "Uso: download_playlist_mp3 <URL_DA_PLAYLIST>"
+    return 1
   fi
+
+  base_dir="/home/$USER/Músicas"
+
+  yt-dlp \
+    -x \
+    --audio-format mp3 \
+    --audio-quality 0 \
+    --yes-playlist \
+    --no-overwrites \
+    --ignore-errors \
+    --embed-metadata \
+    --embed-thumbnail \
+    --add-metadata \
+    --restrict-filenames \
+    --output "$base_dir/%(playlist_title)s/%(playlist_index)02d - %(title)s.%(ext)s" \
+    "$url"
+
+  	echo "Playlist baixada com sucesso!"
 }

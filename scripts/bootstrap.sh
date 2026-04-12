@@ -7,13 +7,13 @@ if [[ $EUID -eq 0 ]]; then
 fi
 
 echo "Primeira atualização do sistema..."
-sudo apt update && sudo apt upgrade -y
+sudo apt update -y && sudo apt upgrade -y
 
 echo "Adicionando PPA fastfetch..."
 sudo add-apt-repository -y ppa:zhangsongcui3371/fastfetch
 
 echo "Segundo update para os pacotes PPA"
-sudo apt update
+sudo apt update -y
 
 APT_PROGRAMS=(
   git
@@ -30,10 +30,14 @@ APT_PROGRAMS=(
   mangohud
   gamemode
   fonts-cascadia-code
-  fonts-firacode
   fonts-inconsolata
-  zram-tools
   eza
+  ani-cli
+  ffmpeg
+  fzf
+  mpv
+  mame-tools
+  yt-dlp
 )
 
 echo "Instalando pacotes APT..."
@@ -57,9 +61,16 @@ backup_file "$HOME/.zshrc"
 backup_file "$HOME/.zsh_aliases"
 backup_file "$HOME/.zsh_functions"
 
+mkdir -i ~/.scripts
+
+echo "Copiando arquivos para seus locais específicos..."
 cp -i dotfiles/zsh/.zshrc "$HOME/.zshrc"
 cp -i dotfiles/zsh/.zsh_aliases "$HOME/.zsh_aliases"
 cp -i dotfiles/zsh/.zsh_functions "$HOME/.zsh_functions"
+cp -i dotfiles/scripts/zip2chd.sh "$HOME/.scripts/zip2chd.sh"
+sudo cp -i dotfiles/utils/yt-dlp "/usr/local/bin/yt-dlp"
+
+sudo chmod +x "$HOME/.scripts/zip2chd.sh"
 
 echo "Definindo Zsh como shell padrão..."
 if command -v zsh >/dev/null; then
@@ -68,6 +79,4 @@ else
   echo "Zsh não encontrado!"
 fi
 
-echo "Configuração aplicada. Abra um novo terminal ou execute: source ~/.zshrc"
-echo "Setup finalizado!"
-echo "Reinicie a sessão ou abra um novo terminal para aplicar o Zsh e os aliases."
+echo "Configuração aplicada.
