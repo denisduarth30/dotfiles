@@ -16,7 +16,6 @@ echo "Segundo update para os pacotes PPA"
 sudo apt update -y
 
 APT_PROGRAMS=(
-  git
   gparted
   vlc
   build-essential

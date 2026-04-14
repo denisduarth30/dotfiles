@@ -1,8 +1,13 @@
 # Configuração para Linux do dotfile
 
+## Aplicativos pré instalados obrigatórios*
+
+* git **(necessário para a obtenção do instalador e dos plugins)**
+###
+    sudo apt update && sudo apt install git
+
 ## 1. Aplicativos instalados pelo script.
 
-* git
 * gparted
 * vlc
 * build-essential
@@ -37,7 +42,7 @@
 
 ### 2.2. ISOS de PS1 e PS2.
 
-- Conversão de ISOS de PS1 e PS2 para o formato CHD **(Ver mais em /scripts/zip2chd.sh)**
+- Conversão de ISOS de PS1 e PS2 para o formato CHD
   - Depende do plugin **mame-tools** para fazer as conversões
   - **OBS:** Após a cópia do plugin ser feita, os jogos vão todos para a pasta **/home/$USER/Games/[ps1 ou ps2]** (dependendo da escolha de conversão do jogo)
 
@@ -52,6 +57,10 @@
   - etc.
 
   **\*Veja mais em /zsh/.zsh_aliases**
+
+### 2.4. ani-cli.
+- Instalação do app 'ani-cli' para assistir animes via terminal
+
 
 ## 3. Instalação.
 
