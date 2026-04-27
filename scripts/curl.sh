@@ -1,13 +1,3 @@
-# install_brave(){
-#     if ! command -v brave-browser >/dev/null; then
-#         echo "Instalando Brave..."
-#         sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-#         sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
-#         sudo apt update
-#         sudo apt install -y brave-browser
-#     fi
-# }
-
 install_rust() {
     if ! command -v rustc >/dev/null; then
       echo "Instalando Rust..."
@@ -17,12 +7,12 @@ install_rust() {
     fi
 }
 
-# install_zed(){
-#     if ! command -v zed >/dev/null; then
-#         echo "Instalando Zed..."
-#         curl -fsS https://zed.dev/install.sh | sh
-#     fi
-# }
+install_zed(){
+    if ! command -v zed >/dev/null; then
+        echo "Instalando Zed..."
+        curl -fsS https://zed.dev/install.sh | sh
+    fi
+}
 
 install_node(){
     if [ ! -d "$HOME/.nvm" ]; then
@@ -50,8 +40,7 @@ install_ohmyzsh() {
     fi
 }
 
-# install_brave
 install_rust
-# install_zed
+install_zed
 install_node
 install_ohmyzsh

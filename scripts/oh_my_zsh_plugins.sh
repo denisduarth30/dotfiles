@@ -1,5 +1,3 @@
-#Os plugins do Oh My Zsh em /scripts/.zshrc não vão funcionar se os repositórios não forem instalados corretamente.
-
 echo "Clonando repositório ZSH-Autocomplete..."
 git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
 

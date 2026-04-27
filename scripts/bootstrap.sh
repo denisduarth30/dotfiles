@@ -2,80 +2,303 @@
 set -e
 
 if [[ $EUID -eq 0 ]]; then
-  echo "Não execute este script como root!"
-  exit 1
+    echo "Não execute este script como root!"
+    exit 1
 fi
 
-echo "Primeira atualização do sistema..."
-sudo apt update -y && sudo apt upgrade -y
+detect_distro() {
+    if [ -f /etc/os-release ]; then
+        . /etc/os-release
+        DISTRO_ID="${ID}"
+        DISTRO_ID_LIKE="${ID_LIKE:-}"
+    else
+        echo "Não foi possível detectar a distro. /etc/os-release não encontrado."
+        exit 1
+    fi
 
-echo "Adicionando PPA fastfetch..."
-sudo add-apt-repository -y ppa:zhangsongcui3371/fastfetch
+    case "$DISTRO_ID" in
+        arch|cachyos|endeavouros|manjaro|garuda)
+            PKG_MANAGER="arch"
+            ;;
+        debian|ubuntu|linuxmint|pop)
+            PKG_MANAGER="apt"
+            ;;
+        fedora)
+            PKG_MANAGER="dnf"
+            ;;
+        rhel|almalinux|rocky|centos)
+            PKG_MANAGER="dnf_rhel"
+            ;;
+        *)
+            if echo "$DISTRO_ID_LIKE" | grep -q "arch"; then
+                PKG_MANAGER="arch"
+            elif echo "$DISTRO_ID_LIKE" | grep -q "debian\|ubuntu"; then
+                PKG_MANAGER="apt"
+            elif echo "$DISTRO_ID_LIKE" | grep -q "fedora\|rhel"; then
+                PKG_MANAGER="dnf"
+            else
+                echo "Distro não suportada: $DISTRO_ID"
+                exit 1
+            fi
+            ;;
+    esac
 
-echo "Segundo update para os pacotes PPA"
-sudo apt update -y
-
-APT_PROGRAMS=(
-  gparted
-  vlc
-  build-essential
-  python3
-  python3-pip
-  flatpak
-  vulkan-tools
-  fastfetch
-  zsh
-  bat
-  mangohud
-  gamemode
-  fonts-cascadia-code
-  fonts-inconsolata
-  eza
-  ani-cli
-  ffmpeg
-  fzf
-  mpv
-  mame-tools
-  yt-dlp
-)
-
-echo "Instalando pacotes APT..."
-sudo apt install -y "${APT_PROGRAMS[@]}"
-
-echo "Definindo Swappiness em 10..."
-if ! grep -q "vm.swappiness" /etc/sysctl.conf; then
-  echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.conf
-  sudo sysctl -p
-fi
-
-backup_file() {
-  if [ -f "$1" ]; then
-      mv "$1" "$1.bak.$(date +%s)"
-  fi
+    echo "Distro detectada: $PRETTY_NAME"
+    echo "Gerenciador de pacotes: $PKG_MANAGER"
+    echo ""
 }
 
-echo "Instalando dotfiles do Zsh..."
 
-backup_file "$HOME/.zshrc"
-backup_file "$HOME/.zsh_aliases"
-backup_file "$HOME/.zsh_functions"
+install_arch() {
+    if ! command -v paru &>/dev/null; then
+        echo "paru não encontrado. Instalando..."
+        sudo pacman -S --needed --noconfirm base-devel git
+        git clone https://aur.archlinux.org/paru.git /tmp/paru
+        cd /tmp/paru && makepkg -si --noconfirm
+        cd - || exit
+    fi
 
-mkdir -i ~/.scripts
+    echo "Atualizando o sistema..."
+    sudo pacman -Syu --noconfirm
 
-echo "Copiando arquivos para seus locais específicos..."
-cp -i dotfiles/zsh/.zshrc "$HOME/.zshrc"
-cp -i dotfiles/zsh/.zsh_aliases "$HOME/.zsh_aliases"
-cp -i dotfiles/zsh/.zsh_functions "$HOME/.zsh_functions"
-cp -i dotfiles/scripts/zip2chd.sh "$HOME/.scripts/zip2chd.sh"
-sudo cp -i dotfiles/utils/yt-dlp "/usr/local/bin/yt-dlp"
+    PKGS=(
+        gparted
+        vlc
+        base-devel
+        python
+        python-pip
+        flatpak
+        vulkan-tools
+        fastfetch
+        zsh
+        bat
+        mangohud
+        gamemode
+        ttf-cascadia-code
+        ttf-inconsolata
+        eza
+        ffmpeg
+        fzf
+        mpv
+        mame
+        yt-dlp
+        xournalpp
+    )
 
-sudo chmod +x "$HOME/.scripts/zip2chd.sh"
+    echo "Instalando pacotes oficiais..."
+    sudo pacman -S --needed --noconfirm "${PKGS[@]}"
 
-echo "Definindo Zsh como shell padrão..."
-if command -v zsh >/dev/null; then
-  chsh -s "$(which zsh)"
-else
-  echo "Zsh não encontrado!"
-fi
+    echo "Instalando pacotes do AUR..."
+    paru -S --needed --noconfirm ani-cli
+}
 
-echo "Configuração aplicada.
+install_apt() {
+    echo "Atualizando o sistema..."
+    sudo apt update -y && sudo apt upgrade -y
+
+    if ! command -v fastfetch &>/dev/null; then
+        echo "Adicionando PPA do fastfetch..."
+        sudo add-apt-repository -y ppa:zhangsongcui3371/fastfetch
+        sudo apt update -y
+    fi
+
+    PKGS=(
+        gparted
+        vlc
+        build-essential
+        python3
+        python3-pip
+        flatpak
+        vulkan-tools
+        fastfetch
+        zsh
+        bat
+        mangohud
+        gamemode
+        fonts-cascadia-code
+        fonts-inconsolata
+        eza
+        ffmpeg
+        fzf
+        mpv
+        mame-tools
+        yt-dlp
+        xournalpp
+    )
+
+    echo "Instalando pacotes..."
+    sudo apt install -y "${PKGS[@]}"
+
+    if ! command -v ani-cli &>/dev/null; then
+        echo "Instalando ani-cli manualmente..."
+        sudo curl -Lo /usr/local/bin/ani-cli \
+            https://raw.githubusercontent.com/pystardust/ani-cli/master/ani-cli
+        sudo chmod +x /usr/local/bin/ani-cli
+    fi
+}
+
+install_dnf() {
+    echo "Atualizando o sistema..."
+    sudo dnf upgrade -y --refresh
+
+    if ! rpm -q rpmfusion-free-release &>/dev/null; then
+        echo "Habilitando RPM Fusion..."
+        sudo dnf install -y \
+            "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
+            "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
+    fi
+
+    PKGS=(
+        gparted
+        vlc
+        "@development-tools"
+        python3
+        python3-pip
+        flatpak
+        vulkan-tools
+        fastfetch
+        zsh
+        bat
+        mangohud
+        gamemode
+        cascadia-code-fonts
+        levien-inconsolata-fonts
+        eza
+        ffmpeg
+        fzf
+        mpv
+        mame
+        yt-dlp
+        xournalpp
+    )
+
+    echo "Instalando pacotes..."
+    sudo dnf install -y "${PKGS[@]}"
+
+    if ! command -v ani-cli &>/dev/null; then
+        echo "Instalando ani-cli manualmente..."
+        sudo curl -Lo /usr/local/bin/ani-cli \
+            https://raw.githubusercontent.com/pystardust/ani-cli/master/ani-cli
+        sudo chmod +x /usr/local/bin/ani-cli
+    fi
+}
+
+install_dnf_rhel() {
+    echo "Atualizando o sistema..."
+    sudo dnf upgrade -y
+
+    if ! rpm -q epel-release &>/dev/null; then
+        echo "Habilitando EPEL..."
+        sudo dnf install -y epel-release
+        sudo dnf config-manager --set-enabled crb
+    fi
+
+    if ! rpm -q rpmfusion-free-release &>/dev/null; then
+        echo "Habilitando RPM Fusion..."
+        sudo dnf install -y \
+            "https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm" \
+            "https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm"
+    fi
+
+    PKGS=(
+        gparted
+        vlc
+        "@development-tools"
+        python3
+        python3-pip
+        flatpak
+        vulkan-tools
+        zsh
+        bat
+        fzf
+        mpv
+        ffmpeg
+        yt-dlp
+    )
+
+    echo "Instalando pacotes disponíveis..."
+    sudo dnf install -y "${PKGS[@]}"
+
+    echo "Instalando pacotes sem repositório oficial no RHEL..."
+
+    if ! command -v fastfetch &>/dev/null; then
+        FASTFETCH_URL=$(curl -s https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest \
+            | grep "browser_download_url.*linux-amd64.rpm" | cut -d '"' -f 4)
+        sudo dnf install -y "$FASTFETCH_URL"
+    fi
+
+    if ! command -v eza &>/dev/null; then
+        EZA_URL=$(curl -s https://api.github.com/repos/eza-community/eza/releases/latest \
+            | grep "browser_download_url.*x86_64-unknown-linux-musl.tar.gz" | cut -d '"' -f 4)
+        curl -Lo /tmp/eza.tar.gz "$EZA_URL"
+        tar -xzf /tmp/eza.tar.gz -C /tmp
+        sudo mv /tmp/eza /usr/local/bin/eza
+        sudo chmod +x /usr/local/bin/eza
+    fi
+
+    if ! command -v ani-cli &>/dev/null; then
+        sudo curl -Lo /usr/local/bin/ani-cli \
+            https://raw.githubusercontent.com/pystardust/ani-cli/master/ani-cli
+        sudo chmod +x /usr/local/bin/ani-cli
+    fi
+}
+
+set_swappiness() {
+    echo "Definindo Swappiness em 10..."
+    if ! grep -q "vm.swappiness" /etc/sysctl.conf; then
+        echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.conf
+        sudo sysctl -p
+    else
+        echo "Swappiness já configurado, pulando."
+    fi
+}
+
+backup_file() {
+    if [ -f "$1" ]; then
+        mv "$1" "$1.bak.$(date +%s)"
+        echo "Backup criado: $1.bak.*"
+    fi
+}
+
+install_dotfiles() {
+    echo "Instalando dotfiles do Zsh..."
+    backup_file "$HOME/.zshrc"
+    backup_file "$HOME/.zsh_aliases"
+    backup_file "$HOME/.zsh_functions"
+
+    mkdir -p "$HOME/.scripts"
+
+    echo "Copiando arquivos de configuração..."
+    cp -i dotfiles/zsh/.zshrc         "$HOME/.zshrc"
+    cp -i dotfiles/zsh/.zsh_aliases   "$HOME/.zsh_aliases"
+    cp -i dotfiles/zsh/.zsh_functions "$HOME/.zsh_functions"
+    cp -i dotfiles/scripts/zip2chd.sh "$HOME/.scripts/zip2chd.sh"
+
+    sudo cp -i dotfiles/utils/yt-dlp "/usr/local/bin/yt-dlp"
+    sudo chmod +x "/usr/local/bin/yt-dlp"
+    chmod +x "$HOME/.scripts/zip2chd.sh"
+
+    cp -r dotfiles/.config/* "$HOME/.config"
+}
+
+set_default_shell() {
+    echo "Definindo Zsh como shell padrão..."
+    if command -v zsh &>/dev/null; then
+        chsh -s "$(which zsh)"
+    else
+        echo "Zsh não encontrado, algo deu errado!"
+        exit 1
+    fi
+}
+detect_distro
+
+case "$PKG_MANAGER" in
+    arch)     install_arch     ;;
+    apt)      install_apt      ;;
+    dnf)      install_dnf      ;;
+    dnf_rhel) install_dnf_rhel ;;
+esac
+
+set_swappiness
+install_dotfiles
+set_default_shell

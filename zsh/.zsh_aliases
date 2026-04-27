@@ -1,5 +1,5 @@
 alias ~='cd ~'
-alias dwd='cd /home/denis/Downloads'
+alias dwd='cd $HOME/Downloads'
 alias ls='eza -lha --git'
 alias disks='df -h'
 alias ff='fastfetch'

@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-# Verifica argumento
 if [ -z "$1" ]; then
   echo "Uso: $0 jogo.zip"
   exit 1
@@ -13,9 +12,9 @@ BASE=$(basename "$ZIP" .zip)
 WORKDIR="/tmp/$BASE"
 
 if [ "$CONSOLE" == "ps1" ]; then
-	DEST="/home/$USER/Games/ps1/$BASE"
+	DEST="/$HOME/Games/ps1/$BASE"
 else
-	DEST="/home/$USER/Games/ps2/$BASE"
+	DEST="/$HOME/Games/ps2/$BASE"
 fi
 
 echo "Criando diretórios..."

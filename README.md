@@ -27,6 +27,7 @@
 * mpv
 * mame-tools
 * yt-dlp
+* xournalpp
 
 #### \*Veja mais em /scripts/bootstrap.sh
 
@@ -81,11 +82,3 @@
 ###
 
     ./install.sh (para instalação do script em ~/dotfiles/scripts/bootstrap.sh)
-
-## 4. Vai funcionar?
-
-### **...**
-
-### **Só deus sabe kkk testa aí**
-
-<img src="images/jesus.jpg" width="350" height="350">

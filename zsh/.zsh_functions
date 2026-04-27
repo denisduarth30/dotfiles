@@ -1,68 +1,134 @@
-#!/bin/bash
-
-full_uninstall(){
-  uninstall "$1" && fullclean
+_detect_pkg_manager() {
+    if command -v paru &>/dev/null; then
+        echo "paru"
+    elif command -v yay &>/dev/null; then
+        echo "yay"
+    elif command -v pacman &>/dev/null; then
+        echo "pacman"
+    elif command -v dnf &>/dev/null; then
+        echo "dnf"
+    elif command -v apt &>/dev/null; then
+        echo "apt"
+    else
+        echo "unknown"
+    fi
 }
 
-full_update(){
-	echo "Atualizando sistema..."	
-	sudo apt update && sudo apt upgrade -y
+full_uninstall() {
+    local pkg="$1"
+    local pm
+    pm=$(_detect_pkg_manager)
 
-	echo "Atualizando flatpaks..."
-	flatpak update
-
-	if [[ -d "$HOME/.oh-my-zsh" ]]; then
-	  echo "➡ Atualizando Oh My Zsh..."
-	  omz update
-	fi
-
-	echo "Atualizando TLDR..."
-	tldr --update
+    case "$pm" in
+        paru|yay)
+            "$pm" -Rns --noconfirm "$pkg"
+            ;;
+        pacman)
+            sudo pacman -Rns --noconfirm "$pkg"
+            ;;
+        dnf)
+            sudo dnf remove -y "$pkg" && sudo dnf autoremove -y
+            ;;
+        apt)
+            sudo apt remove -y "$pkg" && sudo apt autopurge -y && sudo apt autoremove -y
+            ;;
+        *)
+            echo "Gerenciador de pacotes não suportado."
+            return 1
+            ;;
+    esac
 }
 
-zip2chd(){
-	~/.scripts/zip2chd.sh "$1"
+full_update() {
+    local pm
+    pm=$(_detect_pkg_manager)
+
+    echo "Atualizando sistema..."
+    case "$pm" in
+        paru|yay)
+            "$pm" -Syu --noconfirm
+            ;;
+        pacman)
+            sudo pacman -Syu --noconfirm
+            ;;
+        dnf)
+            sudo dnf upgrade -y --refresh
+            ;;
+        apt)
+            sudo apt update && sudo apt upgrade -y
+            ;;
+        *)
+            echo "Gerenciador de pacotes não suportado."
+            return 1
+            ;;
+    esac
+
+    if command -v flatpak &>/dev/null; then
+        echo "Atualizando flatpaks..."
+        flatpak update -y
+    fi
+
+    if [[ -d "$HOME/.oh-my-zsh" ]]; then
+        echo "Atualizando Oh My Zsh..."
+        omz update
+    fi
+
+    if command -v tldr &>/dev/null; then
+        echo "Atualizando TLDR..."
+        tldr --update
+    fi
 }
 
-dwd_mp3_audio(){
-	base_dir="/home/$USER/Músicas"
-    url="$1"
-
-    yt-dlp \ 
-    -x \
-    --audio-format mp3 \
-    --no-overwrites \
-    --ignore-errors \
-    --embed-metadata \
-    --embed-thumbnail \
-    --add-metadata \
-    --output "$base_dir/%(title)s.%(ext)s" \
-    "$url"
+zip2chd() {
+    ~/.scripts/zip2chd.sh "$1"
 }
 
-dwd_mp3_playlist(){
-  url="$1"
+dwd_mp3_audio() {
+    local url="$1"
+    local base_dir="$HOME/Músicas"
 
-  if [ -z "$url" ]; then
-    echo "Uso: download_playlist_mp3 <URL_DA_PLAYLIST>"
-    return 1
-  fi
+    if [ -z "$url" ]; then
+        echo "Uso: dwd_mp3_audio <URL>"
+        return 1
+    fi
 
-  base_dir="/home/$USER/Músicas"
+    mkdir -p "$base_dir"
 
-  yt-dlp \
-    -x \
-    --audio-format mp3 \
-    --audio-quality 0 \
-    --yes-playlist \
-    --no-overwrites \
-    --ignore-errors \
-    --embed-metadata \
-    --embed-thumbnail \
-    --add-metadata \
-    --restrict-filenames \
-    --output "$base_dir/%(playlist_title)s/%(playlist_index)02d - %(title)s.%(ext)s" \
-    "$url"
+    yt-dlp \
+        -x \
+        --audio-format mp3 \
+        --audio-quality 0 \
+        --no-overwrites \
+        --ignore-errors \
+        --embed-metadata \
+        --embed-thumbnail \
+        --output "$base_dir/%(title)s.%(ext)s" \
+        "$url"
+}
 
-  	echo "Playlist baixada com sucesso!"
+dwd_mp3_playlist() {
+    local url="$1"
+    local base_dir="$HOME/Músicas"
+
+    if [ -z "$url" ]; then
+        echo "Uso: dwd_mp3_playlist <URL_DA_PLAYLIST>"
+        return 1
+    fi
+
+    mkdir -p "$base_dir"
+
+    yt-dlp \
+        -x \
+        --audio-format mp3 \
+        --audio-quality 0 \
+        --yes-playlist \
+        --no-overwrites \
+        --ignore-errors \
+        --embed-metadata \
+        --embed-thumbnail \
+        --restrict-filenames \
+        --output "$base_dir/%(playlist_title)s/%(playlist_index)02d - %(title)s.%(ext)s" \
+        "$url"
+
+    echo "Playlist baixada com sucesso!"
 }

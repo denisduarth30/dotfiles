@@ -1,0 +1,10 @@
+configuration {
+    modi: "window,drun,run";
+    display-drun: "Apps";
+    display-window: "Janelas";
+    display-combi: "";
+    show-icons: true;
+    drun-display-format: "{icon} {name}";
+    terminal: "alacritty";
+    disable-history: false;
+}

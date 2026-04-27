@@ -1,0 +1,83 @@
+/* ROFI SQUARED THEME (CORES INVERTIDAS) */
+* {
+    font:   "Cascadia Code 13";
+    bg0:     #d0d0d0;
+    bg1:     #cccccc;
+    fg0:     #606060;
+    placeholder-color: #a0a0a0;
+    border-color:     #a0a0a0;
+    accent-color:     #000000;
+    urgent-color:     #ffffff;
+    background-color:   transparent;
+    text-color:         @fg0;
+    margin:     0;
+    padding:    0;
+    spacing:    0;
+}
+window {
+    location:   center;
+    width:      500;
+    background-color:   @bg0;
+}
+inputbar {
+    spacing:    10px;
+    padding:    10px;
+    background-color:   @bg1;
+    border: 1px;
+    border-color: @border-color;
+}
+prompt, entry, element-icon, element-text {
+    vertical-align: 0.5;
+}
+prompt {
+    text-color: @accent-color;
+    enabled: true;
+    text: "🔍";
+}
+textbox {
+    padding:            8px;
+    background-color:   @bg1;
+}
+listview {
+    padding:    0px 0;
+    lines:      8;
+    columns:    1;
+    fixed-height:   false;
+}
+entry {
+    text-color: #000000;
+    font:   inherit;
+    placeholder         : "O que você está procurando?";
+    placeholder-color   : @placeholder-color;
+}
+element {
+    padding:    8px;
+    spacing:    8px;
+}
+element normal normal {
+    text-color: @fg0;
+}
+element normal urgent {
+    text-color: @urgent-color;
+}
+element normal active {
+    text-color: @accent-color;
+}
+element alternate active {
+    text-color: @accent-color;
+}
+element selected {
+    text-color: #000000;
+}
+element selected normal, element selected active {
+    background-color:   #b0b0b0;
+}
+element selected urgent {
+    background-color:   @urgent-color;
+}
+element-icon {
+    size:   1em;
+}
+element-text {
+    text-color: inherit;
+}
