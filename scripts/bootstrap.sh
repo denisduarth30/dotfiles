@@ -64,13 +64,13 @@ install_arch() {
     PKGS=(
         gparted
         vlc
+        fish
         base-devel
         python
         python-pip
         flatpak
         vulkan-tools
         fastfetch
-        zsh
         bat
         mangohud
         gamemode
@@ -105,13 +105,13 @@ install_apt() {
     PKGS=(
         gparted
         vlc
+        fish
         build-essential
         python3
         python3-pip
         flatpak
         vulkan-tools
         fastfetch
-        zsh
         bat
         mangohud
         gamemode
@@ -151,13 +151,13 @@ install_dnf() {
     PKGS=(
         gparted
         vlc
+        fish
         "@development-tools"
         python3
         python3-pip
         flatpak
         vulkan-tools
         fastfetch
-        zsh
         bat
         mangohud
         gamemode
@@ -202,13 +202,13 @@ install_dnf_rhel() {
 
     PKGS=(
         gparted
+        fish
         vlc
         "@development-tools"
         python3
         python3-pip
         flatpak
         vulkan-tools
-        zsh
         bat
         fzf
         mpv
@@ -253,40 +253,21 @@ set_swappiness() {
     fi
 }
 
-backup_file() {
-    if [ -f "$1" ]; then
-        mv "$1" "$1.bak.$(date +%s)"
-        echo "Backup criado: $1.bak.*"
-    fi
-}
-
 install_dotfiles() {
-    echo "Instalando dotfiles do Zsh..."
-    backup_file "$HOME/.zshrc"
-    backup_file "$HOME/.zsh_aliases"
-    backup_file "$HOME/.zsh_functions"
-
+    echo "Instalando scripts..."
     mkdir -p "$HOME/.scripts"
-
-    echo "Copiando arquivos de configuração..."
-    cp -i dotfiles/zsh/.zshrc         "$HOME/.zshrc"
-    cp -i dotfiles/zsh/.zsh_aliases   "$HOME/.zsh_aliases"
-    cp -i dotfiles/zsh/.zsh_functions "$HOME/.zsh_functions"
-    cp -i dotfiles/scripts/zip2chd.sh "$HOME/.scripts/zip2chd.sh"
-
     sudo cp -i dotfiles/utils/yt-dlp "/usr/local/bin/yt-dlp"
     sudo chmod +x "/usr/local/bin/yt-dlp"
-    chmod +x "$HOME/.scripts/zip2chd.sh"
-
-    cp -r dotfiles/.config/* "$HOME/.config"
+    rsync -av dotfiles/.config/ "$HOME/.config/"
+    cp -r dotfiles/.config/. "$HOME/.config/"
 }
 
 set_default_shell() {
-    echo "Definindo Zsh como shell padrão..."
-    if command -v zsh &>/dev/null; then
-        chsh -s "$(which zsh)"
+    echo "Definindo Fish como shell padrão..."
+    if command -v fish &>/dev/null; then
+        chsh -s "$(which fish)"
     else
-        echo "Zsh não encontrado, algo deu errado!"
+        echo "Fish não encontrado, algo deu errado!"
         exit 1
     fi
 }
@@ -302,3 +283,6 @@ esac
 set_swappiness
 install_dotfiles
 set_default_shell
+
+echo "Instalando tldr..."
+pip3 install tldr --break-system-packages

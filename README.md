@@ -16,7 +16,7 @@
 * flatpak
 * vulkan-tools
 * fastfetch
-* zsh
+* fish
 * bat
 * gamemode
 * mangohud

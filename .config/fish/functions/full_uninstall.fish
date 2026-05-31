@@ -32,7 +32,3 @@ function full_uninstall
             return 1
     end
 end
-
-function zip2chd
-    ~/.scripts/zip2chd.sh $argv[1]
-end

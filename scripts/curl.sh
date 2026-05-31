@@ -21,26 +21,16 @@ install_node(){
       bash nvm_install.sh
       rm nvm_install.sh
     fi
-    
+
     export NVM_DIR="$HOME/.nvm"
-    
+
     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-    
+
     if ! command -v node >/dev/null; then
       nvm install --lts
-    fi
-}
-
-install_ohmyzsh() {
-    if [ ! -d "$HOME/.oh-my-zsh" ]; then
-      echo "Instalando Oh My Zsh..."
-      curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -o omz_install.sh
-      sh omz_install.sh --unattended
-      rm omz_install.sh
     fi
 }
 
 install_rust
 install_zed
 install_node
-install_ohmyzsh
