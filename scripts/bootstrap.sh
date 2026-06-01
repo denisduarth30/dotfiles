@@ -62,6 +62,7 @@ install_arch() {
     sudo pacman -Syu --noconfirm
 
     PKGS=(
+        alacritty
         gparted
         vlc
         fish
@@ -83,6 +84,7 @@ install_arch() {
         mame
         yt-dlp
         xournalpp
+        micro
     )
 
     echo "Instalando pacotes oficiais..."
@@ -103,6 +105,7 @@ install_apt() {
     fi
 
     PKGS=(
+        alacritty
         gparted
         vlc
         fish
@@ -124,6 +127,7 @@ install_apt() {
         mame-tools
         yt-dlp
         xournalpp
+        micro
     )
 
     echo "Instalando pacotes..."
@@ -149,6 +153,7 @@ install_dnf() {
     fi
 
     PKGS=(
+        alacritty
         gparted
         vlc
         fish
@@ -170,6 +175,7 @@ install_dnf() {
         mame
         yt-dlp
         xournalpp
+        micro
     )
 
     echo "Instalando pacotes..."
@@ -201,6 +207,7 @@ install_dnf_rhel() {
     fi
 
     PKGS=(
+        alacritty
         gparted
         fish
         vlc
@@ -214,6 +221,7 @@ install_dnf_rhel() {
         mpv
         ffmpeg
         yt-dlp
+        micro
     )
 
     echo "Instalando pacotes disponíveis..."
