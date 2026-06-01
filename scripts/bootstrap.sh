@@ -291,6 +291,3 @@ esac
 set_swappiness
 install_dotfiles
 set_default_shell
-
-echo "Instalando tldr..."
-pip3 install tldr --break-system-packages

@@ -19,6 +19,7 @@ function dwd_mp3_audio --description "Baixa áudio em MP3 de uma URL"
         --ignore-errors \
         --embed-metadata \
         --embed-thumbnail \
+        --js-runtimes deno \
         --output "$base_dir/%(title)s.%(ext)s" \
         $url
 end

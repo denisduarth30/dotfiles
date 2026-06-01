@@ -1,0 +1,4 @@
+# ~/dotfiles/fish/.gitignore
+fish_history
+fish_variables  # gerado automaticamente pelo Fish
+/generated_completions/

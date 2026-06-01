@@ -33,6 +33,7 @@ function dwd_mp4_video --description "Baixa vídeo em MP4 de uma URL"
         --ignore-errors \
         --embed-metadata \
         --embed-thumbnail \
+        --js-runtimes deno \
         --embed-subs \
         --output "$base_dir/%(title)s.%(ext)s" \
         $url

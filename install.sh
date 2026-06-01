@@ -9,4 +9,7 @@ bash "$DOTFILES/scripts/bootstrap.sh"
 echo "Instalando pacotes via curl..."
 bash "$DOTFILES/scripts/curl.sh"
 
+echo "Instalando pacotes via python..."
+bash "$DOTFILES/scripts/python.sh"
+
 echo "Finalizado."

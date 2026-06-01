@@ -21,6 +21,7 @@ function dwd_mp3_playlist --description "Baixa playlist completa em MP3"
         --embed-metadata \
         --embed-thumbnail \
         --restrict-filenames \
+        --js-runtimes deno \
         --output "$base_dir/%(playlist_title)s/%(playlist_index)02d - %(title)s.%(ext)s" \
         $url
 
