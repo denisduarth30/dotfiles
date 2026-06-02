@@ -12,4 +12,7 @@ bash "$DOTFILES/scripts/curl.sh"
 echo "Instalando pacotes via python..."
 bash "$DOTFILES/scripts/python.sh"
 
+echo "Definindo wallpaper..."
+bash "$DOTFILES/scripts/wallpaper.sh"
+
 echo "Finalizado."

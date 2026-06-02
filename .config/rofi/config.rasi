@@ -1,6 +1,6 @@
 configuration {
-    modi: "window,drun,run";
-    display-drun: "Apps";
+    modi: "window,drun,run,filebrowser";
+    display-drun: "🔎";
     display-window: "Janelas";
     display-combi: "";
     show-icons: true;
@@ -8,3 +8,5 @@ configuration {
     terminal: "alacritty";
     disable-history: false;
 }
+
+@theme "~/.config/rofi/themes/light.rasi"
