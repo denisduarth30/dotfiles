@@ -1,12 +1,16 @@
 configuration {
-    modi: "window,drun,run,filebrowser";
+    modi: "window,drun,run,filebrowser,busca:~/.config/fish/functions/rofi-search.fish";
     display-drun: "🔎";
-    display-window: "Janelas";
+    display-window: "🪟​";
+    display-filebrowser: "🗂️​";
+    display-busca: "🌐​";
+    display-run: "🖥️";
     display-combi: "";
     show-icons: true;
     drun-display-format: "{icon} {name}";
     terminal: "alacritty";
     disable-history: false;
+    font: "FiraCode Nerd Font 12";
 }
 
 @theme "~/.config/rofi/themes/light.rasi"

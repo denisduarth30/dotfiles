@@ -1,5 +1,5 @@
 * {
-    font:   "Cascadia Code 13";
+    font:   "Cascadia Code 12.5";
     bg0:     #ffffff;
     bg1:     #f0f0f0;
     fg0:     #555555;
@@ -23,9 +23,8 @@ inputbar {
     spacing:    10px;
     padding:    15px;
     background-color:   #ffffff;
-    border: 1px;
+    border: 0px;
     border-radius:      0px 10px 0px 0px;
-    border-color:       #e0e0e0;
 }
 prompt, entry, element-icon, element-text {
     vertical-align: 0.5;
@@ -48,14 +47,14 @@ listview {
 entry {
     text-color: #555555;
     font:   inherit;
-    placeholder         : "O que procura?";
+    placeholder         : "O que está procurando hoje?";
     placeholder-color   : @placeholder-color;
     horizontal-align: 0.0025; /* 0 = Esquerda, 0.5 = Centro, 1 = Direita */
     vertical-align: 0.5;   /* 0 = Topo, 0.5 = Centro, 1 = Base */
 }
 element {
-    padding:    5px 10px 10px 15px;
-    spacing:    2px;
+    padding:    1px 10px 10px 15px;
+    spacing:    0px;
 }
 element normal normal {
     text-color: @fg0;
@@ -80,7 +79,7 @@ element selected urgent {
     background-color:   @urgent-color;
 }
 element-icon {
-    size:   1.2em;
+    size:   1.7em;
 }
 element-text {
     text-color: inherit;
