@@ -1,5 +1,5 @@
 * {
-    font:   "Cascadia Code 13";
+    font:   "Cascadia Code 14";
     bg0:     #ffffff;
     bg1:     #f0f0f0;
     fg0:     #555555;
@@ -20,7 +20,7 @@ window {
     width:      450;
     background-color:   @bg0;
     border-radius:      @radius;
-    border: 1px;
+    border: 2px;
     border-color:       #000000;
 }
 inputbar {
@@ -77,15 +77,15 @@ element alternate active {
     text-color: @accent-color;
 }
 element selected {
-    padding:    7px 7px 7px 10px;
+    padding:    7px;
     text-color: #000000;
 }
 element selected normal, element selected active {
-    background-color:   #e0e0e0;
-    border: 1px;
+    background-color:   #eaeaea;
+    border:             2px;
     border-color:       #000000;
-    border-radius:      @radius;
-    text-color:         inherit;
+    border-radius:      7px;
+    text-color:         #000000;
 }
 element selected urgent {
     background-color:   @urgent-color;
@@ -95,7 +95,7 @@ element-icon {
     vertical-align: 0.5;
 }
 element-text {
-    font:       "Cascadia Code 11.5";
+    font:       "Cascadia Code 11.8";
     text-color: inherit;
     highlight:  bold;
 }
