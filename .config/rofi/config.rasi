@@ -1,11 +1,11 @@
 configuration {
-    modi: "window,drun,run,filebrowser,busca:~/.config/fish/functions/rofi-search.fish";
+    modi: "drun,run,busca:/home/denis/.config/fish/functions/rofi-search.fish";
     display-drun: "🔎";
     display-window: "🪟​";
     display-filebrowser: "🗂️​";
     display-busca: "🌐​";
     display-run: "🖥️";
-    display-combi: "";
+    display-combi: "⭐️";
     show-icons: true;
     drun-display-format: "{icon} {name}";
     terminal: "alacritty";

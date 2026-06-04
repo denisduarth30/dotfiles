@@ -3,7 +3,8 @@
     bg0:     #ffffff;
     bg1:     #f0f0f0;
     fg0:     #555555;
-    placeholder-color: #a0a0a0;
+    fg-dim:  #b0b0b0;
+    placeholder-color: #b0b0b0;
     border-color:     transparent;
     accent-color:     #555555;
     urgent-color:     #ffffff;
@@ -15,7 +16,7 @@
 }
 window {
     location:   center;
-    width:      500;
+    width:      450;
     background-color:   @bg0;
     border-radius:      10px;
 }
@@ -35,29 +36,30 @@ prompt {
     text: "🔍";
 }
 textbox {
-    padding:            8px;
+    padding:            7px;
     background-color:   @bg1;
 }
 listview {
-    padding:    0px 0;
-    lines:      8;
-    columns:    1;
-    fixed-height:   false;
+    fixed-height: false;
+    dynamic: true;
+    scrollbar: true;
+    spacing: 0px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 1px 0px;
+    lines:6;
 }
 entry {
     text-color: #555555;
     font:   inherit;
     placeholder         : "O que está procurando hoje?";
     placeholder-color   : @placeholder-color;
-    horizontal-align: 0.0025; /* 0 = Esquerda, 0.5 = Centro, 1 = Direita */
-    vertical-align: 0.5;   /* 0 = Topo, 0.5 = Centro, 1 = Base */
 }
 element {
-    padding:    1px 10px 10px 15px;
+    padding:    8px 8px 8px 15px;
     spacing:    0px;
 }
 element normal normal {
-    text-color: @fg0;
+    text-color: @fg-dim;
 }
 element normal urgent {
     text-color: @urgent-color;
@@ -65,22 +67,28 @@ element normal urgent {
 element normal active {
     text-color: @accent-color;
 }
+element alternate normal {
+    text-color: @fg-dim;
+}
 element alternate active {
     text-color: @accent-color;
 }
 element selected {
-    text-color: #555555;
+    text-color: #000000;
 }
 element selected normal, element selected active {
     background-color:   #f0f0f0;
     border-radius:      10px 10px 10px 0px;
+    text-color:         inherit;
 }
 element selected urgent {
     background-color:   @urgent-color;
 }
 element-icon {
-    size:   1.7em;
+    size: 1.5em;
+    vertical-align: 0.5;
 }
 element-text {
     text-color: inherit;
+    highlight: bold;
 }
