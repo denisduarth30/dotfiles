@@ -5,3 +5,5 @@ source /usr/share/fish/config.fish
 #function fish_greeting
 #    # smth smth
 #end
+
+zoxide init fish | source
