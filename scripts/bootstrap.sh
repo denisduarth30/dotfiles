@@ -85,6 +85,7 @@ install_arch() {
         yt-dlp
         xournalpp
         micro
+        zoxide
     )
 
     echo "Instalando pacotes oficiais..."
@@ -128,6 +129,7 @@ install_apt() {
         yt-dlp
         xournalpp
         micro
+        zoxide
     )
 
     echo "Instalando pacotes..."
@@ -176,6 +178,7 @@ install_dnf() {
         yt-dlp
         xournalpp
         micro
+        zoxide
     )
 
     echo "Instalando pacotes..."
@@ -222,6 +225,7 @@ install_dnf_rhel() {
         ffmpeg
         yt-dlp
         micro
+        zoxide
     )
 
     echo "Instalando pacotes disponíveis..."
