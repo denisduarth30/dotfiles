@@ -1,85 +1,56 @@
-# Configuração para Linux do dotfile
+# Dotfiles — Denis
 
-## Aplicativos pré instalados obrigatórios*
+Configuração pessoal para Linux (Debian/Ubuntu-based).
 
-* **git**
-###
+## Pré-requisito
+
+**git** deve estar instalado:
+
     sudo apt update && sudo apt install git
 
-## 1. Aplicativos instalados pelo script.
-
-* alacritty (terminal)
-* gparted
-* vlc
-* fish (shell)
-* build-essential
-* python3
-* python3-pip
-* flatpak
-* vulkan-tools
-* fastfetch
-* fish
-* bat (batcat)
-* gamemode
-* mangohud
-* eza
-* ani-cli
-* ffmpeg
-* fzf
-* mpv
-* mame-tools
-* yt-dlp
-* xournalpp
-* micro (editor de texto)
-
-#### \*Veja mais em dotfiles/scripts/bootstrap.sh
-
-## 2. Funções criadas pelo script.
-
-### 2.1. Músicas e playlists do Youtube 🎵 
-
-- Download de músicas do youtube em mp3
-- Download de playlists do youtube em mp3
-  - Ambos dependem do arquivo **yt-dlp** em **/utils/yt-dlp**
-  - **Fonte original:** **https://github.com/yt-dlp/yt-dlp?tab=readme-ov-file#installation**
-
-### 2.2. ISOS de PS1 e PS2 🎮️
-
-- Conversão de ISOS de PS1 e PS2 para o formato CHD
-  - Depende do plugin **mame-tools** para fazer as conversões
-  - **OBS:** Após a cópia do plugin ser feita, os jogos vão todos para a pasta **/home/$USER/Games/[ps1 ou ps2]** (dependendo da escolha de conversão do jogo)
-
-  #### **\*Veja mais em dotfiles/.config/fish/functions/zip_to_chd.fish**
-
-### 2.3. Aliases 📒
-
-- Criação de aliases para facilitar o uso do S.O, principalmente para:
-  - Instalação de programas via apt
-  - Limpeza de programas e arquivos de cache
-  - Visualizar processos e estatísticas
-  - etc.
-
-  **\*Veja mais em dotfiles/.config/fish/conf.d/aliases.fish**
-
-### 2.4. Assistir Animes (ani-cli) 📺️
-
-- Instalação do app 'ani-cli' para assistir animes via terminal
-
-
-## 3. Instalação.
+## Instalação
 
     git clone https://github.com/denisduarth/dotfiles.git
-
-###
-
     cd dotfiles
-
-### 3.1 chmod +x para o install.sh.
-
-#### \*Necessário para rodar o script!
-
-    sudo chmod +x ./install.sh
-
-###
-
+    chmod +x ./install.sh
     ./install.sh
+
+## Aplicativos instalados pelo bootstrap
+
+| App | Funcionalidade |
+|---|---|
+| fish | Shell padrão |
+| alacritty | Terminal |
+| fastfetch | Info do sistema |
+| bat | cat melhorado |
+| eza | ls melhorado |
+| fzf | Busca fuzzy |
+| mpv | Player de vídeo |
+| ffmpeg | Conversão de mídia |
+| yt-dlp | Download do YouTube |
+| ani-cli | Animes no terminal |
+| mangohud | Overlay de performance |
+| gamemode | Otimização para jogos |
+| mame-tools | Conversão de ISOs (CHD) |
+| micro | Editor de texto |
+| vlc, gparted, xournalpp, flatpak, vulkan-tools, build-essential, python3 | Utilitários gerais |
+
+> Veja a lista completa em `scripts/bootstrap.sh`
+
+## Funcionalidades
+
+### 🎵 Download de músicas do YouTube
+Download de músicas e playlists em mp3 via `yt-dlp`.
+> `dotfiles/.config/fish/functions/dwd_mp3_audio.fish`
+
+### 🎮 Conversão de ISOs para CHD (PS1/PS2)
+Converte ISOs para o formato CHD usando `mame-tools`.
+Os jogos são salvos em `~/Games/ps1` ou `~/Games/ps2`.
+> `dotfiles/.config/fish/functions/zip_to_chd.fish`
+
+### 📒 Aliases
+Atalhos para apt, limpeza de cache, processos e mais.
+> `dotfiles/.config/fish/conf.d/aliases.fish`
+
+### 📺 Animes via terminal
+Assistir animes pelo terminal com `ani-cli`.

@@ -17,9 +17,9 @@ set URLS \
     "https://duckduckgo.com/?q=" \
     "https://github.com/search?q=" \
     "https://gitlab.com/search?search=" \
-    "https://letterboxd.com/search/" \
+    "https://letterboxd.com/search/?q=" \
     "https://translate.google.com/?sl=auto&tl=pt&text=" \
-    "https://pt.wikipedia.org/wiki/" \
+    "https://pt.wikipedia.org/w/index.php?search=" \
 
 set DEFAULT_URL "https://duckduckgo.com/?q="
 
@@ -46,7 +46,6 @@ else
         set bang (echo $input | awk '{print $1}')
         set query (echo $input | cut -d' ' -f2-)
 
-        # Verifica modo privado e obtém o bang base
         set private false
         set lookup_bang $bang
         if string match -q '*-p' $bang
@@ -54,7 +53,6 @@ else
             set lookup_bang (string replace -- '-p' '' $bang)
         end
 
-        # Busca a URL nos 10 primeiros bangs
         set url ""
         for i in (seq 1 10)
             if test "$lookup_bang" = "$BANGS[$i]"

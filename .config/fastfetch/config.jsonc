@@ -1,0 +1,75 @@
+{
+  "$schema": "https://fastfetch.dev/schema/config.json",
+
+  "logo": {
+    "source": "linuxmint",
+    "color": {
+      "1": "38;5;240",
+      "2": "38;5;244",
+    },
+    "padding": {
+      "right": 2,
+    },
+  },
+
+  "display": {
+    "separator": "",
+    "color": {
+      "keys": "38;5;102",
+      "title": "38;5;188",
+      "output": "38;5;250",
+    },
+  },
+
+  "modules": [
+    {
+      "type": "title",
+      "color": { "user": "38;5;250", "at": "38;5;240", "host": "38;5;250" },
+    },
+    { "type": "separator", "string": "──────────────", "color": "38;5;238" },
+    { "type": "os", "key": "OS: ", "keyWidth": 14 },
+    { "type": "host", "key": "Host: ", "keyWidth": 14 },
+    { "type": "kernel", "key": "Kernel: ", "keyWidth": 14 },
+    { "type": "uptime", "key": "Uptime: ", "keyWidth": 14 },
+    { "type": "packages", "key": "Packages: ", "keyWidth": 14 },
+    { "type": "shell", "key": "Shell: ", "keyWidth": 14, "showVersion": true },
+    { "type": "display", "key": "Display: ", "keyWidth": 14 },
+    { "type": "de", "key": "DE: ", "keyWidth": 14 },
+    { "type": "wm", "key": "WM: ", "keyWidth": 14 },
+    { "type": "wmtheme", "key": "WM Theme: ", "keyWidth": 14 },
+    { "type": "theme", "key": "Theme: ", "keyWidth": 14 },
+    { "type": "icons", "key": "Icons: ", "keyWidth": 14 },
+    { "type": "font", "key": "Font: ", "keyWidth": 14 },
+    { "type": "cursor", "key": "Cursor: ", "keyWidth": 14 },
+    {
+      "type": "terminal",
+      "key": "Terminal: ",
+      "keyWidth": 14,
+      "showVersion": true,
+    },
+    { "type": "terminalfont", "key": "Terminal Font: ", "keyWidth": 14 },
+    { "type": "cpu", "key": "CPU: ", "keyWidth": 14 },
+    { "type": "gpu", "key": "GPU: ", "keyWidth": 14 },
+    { "type": "memory", "key": "Memory: ", "keyWidth": 14 },
+    { "type": "swap", "key": "Swap: ", "keyWidth": 14 },
+    {
+      "type": "disk",
+      "key": "Disk (/)",
+      "keyWidth": 14,
+      "folders": "/",
+    },
+    {
+      "type": "disk",
+      "key": "Disk (/home)",
+      "keyWidth": 14,
+      "folders": "/home",
+    },
+    {
+      "type": "localip",
+      "key": "Local IP",
+      "keyWidth": 14,
+      "showIpv6": false,
+    },
+    { "type": "locale", "key": "Locale", "keyWidth": 14 },
+  ],
+}

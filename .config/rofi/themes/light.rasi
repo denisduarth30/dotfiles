@@ -81,7 +81,7 @@ element selected {
     text-color: #000000;
 }
 element selected normal, element selected active {
-    background-color:   #eaeaea;
+    background-color:   #f0f0f0;
     border:             2px;
     border-color:       #000000;
     border-radius:      7px;
@@ -91,7 +91,7 @@ element selected urgent {
     background-color:   @urgent-color;
 }
 element-icon {
-    size:           1em;
+    size:           1.3em;
     vertical-align: 0.5;
 }
 element-text {

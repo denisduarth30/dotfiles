@@ -262,18 +262,45 @@ set_swappiness() {
 }
 
 install_dotfiles() {
+    local DOTFILES_DIR
+    DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/dotfiles"
+
+    local DOTFILES_CONFIG="$DOTFILES_DIR/.config"
+    local HOME_CONFIG="$HOME/.config"
+
     echo "Instalando scripts..."
-    mkdir -p "$HOME/.scripts"
-    sudo cp -i dotfiles/utils/yt-dlp "/usr/local/bin/yt-dlp"
+    sudo cp -i "$DOTFILES_DIR/utils/yt-dlp" "/usr/local/bin/yt-dlp"
     sudo chmod +x "/usr/local/bin/yt-dlp"
-    rsync -av dotfiles/.config/ "$HOME/.config/"
-    cp -r dotfiles/.config/. "$HOME/.config/"
+
+    echo "Linkando .config..."
+    mkdir -p "$HOME_CONFIG"
+
+    for dir in "$DOTFILES_CONFIG"/*/; do
+        local name target
+
+        name="$(basename "$dir")"
+        target="$HOME_CONFIG/$name"
+
+        if [ -L "$target" ] && [ "$(readlink "$target")" = "$dir" ]; then
+            echo "  [skip] $name"
+            continue
+        fi
+
+        if [ -d "$target" ] && [ ! -L "$target" ]; then
+            echo "  [backup] $name → ${target}.bak"
+            mv "$target" "${target}.bak"
+        fi
+
+        ln -sf "$dir" "$target"
+        echo "  [ok] $name → $target"
+    done
 }
 
 set_default_shell() {
     echo "Definindo Fish como shell padrão..."
     if command -v fish &>/dev/null; then
         chsh -s "$(which fish)"
+        echo "Shell padrão definido com sucesso! reinicie a sessão para aplicar as mudanças."
     else
         echo "Fish não encontrado, algo deu errado!"
         exit 1
