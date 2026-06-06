@@ -34,6 +34,7 @@ Configuração pessoal para Linux (Debian/Ubuntu-based).
 | mame-tools | Conversão de ISOs (CHD) |
 | micro | Editor de texto |
 | vlc, gparted, xournalpp, flatpak, vulkan-tools, build-essential, python3 | Utilitários gerais |
+| zed | Editor de código |
 
 > Veja a lista completa em `scripts/bootstrap.sh`
 
