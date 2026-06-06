@@ -46,9 +46,8 @@ listview {
     fixed-height: false;
     dynamic: true;
     scrollbar: true;
-    spacing: 0px;
-    padding: 0px 0px 7px 7px;
-    margin: 0px 0px 1px 0px;
+    spacing: -7px;
+    padding: 0px 7px 7px 7px;
     lines:6;
 }
 entry {
