@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+DOTFILES_DIR="$HOME/dotfiles"
 WALLPAPER="$DOTFILES_DIR/assets/interstellar.png"
 
 if [[ ! -f "$WALLPAPER" ]]; then

@@ -267,7 +267,7 @@ set_swappiness() {
 
 install_dotfiles() {
     local DOTFILES_DIR
-    DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/dotfiles"
+    DOTFILES_DIR="$HOME/dotfiles"
 
     local DOTFILES_CONFIG="$DOTFILES_DIR/.config"
     local HOME_CONFIG="$HOME/.config"
@@ -298,6 +298,10 @@ install_dotfiles() {
         ln -sf "$dir" "$target"
         echo "  [ok] $name → $target"
     done
+
+    echo "Linkando fonts..."
+    ln -sf ~/dotfiles/.fonts ~/.fonts
+    fc-cache -fv
 }
 
 set_default_shell() {
