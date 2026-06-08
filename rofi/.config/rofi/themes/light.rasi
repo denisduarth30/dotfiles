@@ -1,5 +1,5 @@
 * {
-    font:   "Cascadia Code 14";
+    font:   "Cascadia Code 15";
     bg0:     #ffffff;
     bg1:     #f0f0f0;
     fg0:     #555555;
@@ -45,7 +45,7 @@ listview {
     dynamic: true;
     scrollbar: true;
     spacing: -3px;
-    padding: 0px 7px 7px 7px;
+    padding: 7px;
     lines:6;
 }
 entry {
@@ -92,7 +92,7 @@ element-icon {
     vertical-align: 0.5;
 }
 element-text {
-    font:       "Cascadia Code 11.85";
+    font:       "Cascadia Code 12.5";
     text-color: inherit;
     highlight:  bold;
 }
