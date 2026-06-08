@@ -17,11 +17,9 @@
 }
 window {
     location:   center;
-    width:      450;
+    width:      500;
     background-color:   @bg0;
     border-radius:      @radius;
-    border: 2px;
-    border-color:       #000000;
 }
 inputbar {
     spacing:    10px;
@@ -46,7 +44,7 @@ listview {
     fixed-height: false;
     dynamic: true;
     scrollbar: true;
-    spacing: -7px;
+    spacing: -3px;
     padding: 0px 7px 7px 7px;
     lines:6;
 }
@@ -58,7 +56,7 @@ entry {
 }
 element {
     padding:    9px 15px 9px 15px;
-    spacing:    0px;
+    spacing:    4px;
 }
 element normal normal {
     text-color: @fg-dim;
@@ -81,7 +79,7 @@ element selected {
 }
 element selected normal, element selected active {
     background-color:   #f0f0f0;
-    border:             2px;
+    border:             4px;
     border-color:       #000000;
     border-radius:      7px;
     text-color:         #000000;
@@ -90,11 +88,11 @@ element selected urgent {
     background-color:   @urgent-color;
 }
 element-icon {
-    size:           1.3em;
+    size:           1.4em;
     vertical-align: 0.5;
 }
 element-text {
-    font:       "Cascadia Code 11.8";
+    font:       "Cascadia Code 11.85";
     text-color: inherit;
     highlight:  bold;
 }
