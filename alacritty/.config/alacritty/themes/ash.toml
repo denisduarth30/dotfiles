@@ -1,0 +1,55 @@
+[colors.primary]
+background = "#0e0e0e"
+foreground = "#d0d0d0"
+dim_foreground = "#888888"
+
+[colors.cursor]
+text   = "#0e0e0e"
+cursor = "#444444"
+
+[colors.vi_mode_cursor]
+text   = "#0e0e0e"
+cursor = "#aaaaaa"
+
+[colors.search.matches]
+foreground = "#0e0e0e"
+background = "#888888"
+
+[colors.search.focused_match]
+foreground = "#0e0e0e"
+background = "#d0d0d0"
+
+[colors.selection]
+text       = "#0e0e0e"
+background = "#aaaaaa"
+
+[colors.normal]
+black   = "#1a1a1a"
+red     = "#777777"
+green   = "#b0b0b0"
+yellow  = "#c0c0c0"
+blue    = "#e0e0e0"
+magenta = "#999999"
+cyan    = "#bbbbbb"
+white   = "#d0d0d0"
+
+[colors.bright]
+black   = "#444444"
+red     = "#888888"
+green   = "#c8c8c8"
+yellow  = "#d8d8d8"
+blue    = "#f0f0f0"
+magenta = "#aaaaaa"
+cyan    = "#cccccc"
+white   = "#f0f0f0"
+
+[colors.dim]
+black   = "#111111"
+red     = "#555555"
+green   = "#888888"
+yellow  = "#909090"
+blue    = "#a8a8a8"
+magenta = "#707070"
+cyan    = "#848484"
+white   = "#aaaaaa"
+
