@@ -85,7 +85,7 @@ install_arch() {
         yt-dlp
         xournalpp
         micro
-        zoxide
+        stow
     )
 
     echo "Instalando pacotes oficiais..."
@@ -129,7 +129,7 @@ install_apt() {
         yt-dlp
         xournalpp
         micro
-        zoxide
+        stow
     )
 
     echo "Instalando pacotes..."
@@ -178,7 +178,7 @@ install_dnf() {
         yt-dlp
         xournalpp
         micro
-        zoxide
+        stow
     )
 
     echo "Instalando pacotes..."
@@ -225,7 +225,7 @@ install_dnf_rhel() {
         ffmpeg
         yt-dlp
         micro
-        zoxide
+        stow
     )
 
     echo "Instalando pacotes disponíveis..."
@@ -266,41 +266,34 @@ set_swappiness() {
 }
 
 install_dotfiles() {
-    local DOTFILES_DIR
-    DOTFILES_DIR="$HOME/dotfiles"
-
-    local DOTFILES_CONFIG="$DOTFILES_DIR/.config"
-    local HOME_CONFIG="$HOME/.config"
+    local DOTFILES_DIR="$HOME/dotfiles"
 
     echo "Instalando scripts..."
     sudo cp -i "$DOTFILES_DIR/utils/yt-dlp" "/usr/local/bin/yt-dlp"
     sudo chmod +x "/usr/local/bin/yt-dlp"
 
-    echo "Linkando .config..."
-    mkdir -p "$HOME_CONFIG"
-
-    for dir in "$DOTFILES_CONFIG"/*/; do
-        local name target
-
-        name="$(basename "$dir")"
-        target="$HOME_CONFIG/$name"
-
-        if [ -L "$target" ] && [ "$(readlink "$target")" = "$dir" ]; then
-            echo "  [skip] $name"
-            continue
-        fi
-
-        if [ -d "$target" ] && [ ! -L "$target" ]; then
-            echo "  [backup] $name → ${target}.bak"
+    echo "Removendo alvos existentes..."
+    local targets=(
+        "$HOME/.config/fish"
+        "$HOME/.config/rofi"
+        "$HOME/.config/zed"
+        "$HOME/.config/fastfetch"
+        "$HOME/.config/MangoHud"
+        "$HOME/.fonts"
+    )
+    for target in "${targets[@]}"; do
+        if [ -L "$target" ]; then
+            rm "$target"
+        elif [ -e "$target" ]; then
             mv "$target" "${target}.bak"
+            echo "  [backup] $target → ${target}.bak"
         fi
-
-        ln -sf "$dir" "$target"
-        echo "  [ok] $name → $target"
     done
 
-    echo "Linkando fonts..."
-    ln -sf ~/dotfiles/.fonts ~/.fonts
+    echo "Linkando dotfiles..."
+    cd "$DOTFILES_DIR" && stow fish rofi zed fastfetch mangohud fonts
+
+    echo "Atualizando cache de fontes..."
     fc-cache -fv
 }
 
