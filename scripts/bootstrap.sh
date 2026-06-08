@@ -88,6 +88,7 @@ install_dotfiles() {
         "$HOME/.config/zed"
         "$HOME/.config/fastfetch"
         "$HOME/.config/MangoHud"
+        "$HOME/.config/alacritty"
         "$HOME/.fonts"
     )
     for target in "${targets[@]}"; do
@@ -100,7 +101,7 @@ install_dotfiles() {
     done
 
     echo "Linkando dotfiles..."
-    cd "$DOTFILES_DIR" && stow fish rofi zed fastfetch mangohud fonts
+    cd "$DOTFILES_DIR" && stow fish rofi zed fastfetch mangohud alacrittyfonts
 
     echo "Atualizando cache de fontes..."
     fc-cache -fv
