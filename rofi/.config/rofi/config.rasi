@@ -1,6 +1,6 @@
 configuration {
     modi: "drun,run,busca:/home/denis/.config/fish/functions/rofi-search.fish";
-    display-drun: "🔎";
+    display-drun: "🔍️";
     display-window: "🪟​";
     display-filebrowser: "🗂️​";
     display-busca: "🌐​";
@@ -12,5 +12,3 @@ configuration {
     disable-history: false;
     font: "FiraCode Nerd Font 12";
 }
-
-@theme "~/.config/rofi/themes/light.rasi"
