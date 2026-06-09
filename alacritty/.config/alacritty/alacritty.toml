@@ -9,8 +9,8 @@ style = "Regular"
 
 [shell]
 program = "/usr/bin/fish"
-args = ["-l"] 
+args = ["-l"]
 
 [cursor]
 style = { shape = "Beam", blinking = "Always" }
-blink_interval = 500
+blink_interval = 250

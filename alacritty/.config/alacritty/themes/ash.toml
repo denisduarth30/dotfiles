@@ -5,7 +5,7 @@ dim_foreground = "#888888"
 
 [colors.cursor]
 text   = "#0e0e0e"
-cursor = "#444444"
+cursor = "#ffffff"
 
 [colors.vi_mode_cursor]
 text   = "#0e0e0e"
@@ -52,4 +52,3 @@ blue    = "#a8a8a8"
 magenta = "#707070"
 cyan    = "#848484"
 white   = "#aaaaaa"
-

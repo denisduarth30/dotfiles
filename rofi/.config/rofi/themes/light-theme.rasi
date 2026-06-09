@@ -78,9 +78,7 @@ element selected {
     text-color: #000000;
 }
 element selected normal, element selected active {
-    background-color:   #f0f0f0;
-    border:             4px;
-    border-color:       #000000;
+    background-color:   #d0d0d0;
     border-radius:      7px;
     text-color:         #000000;
 }

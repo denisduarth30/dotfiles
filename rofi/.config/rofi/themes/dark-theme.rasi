@@ -1,0 +1,96 @@
+* {
+    font:   "Cascadia Code 15";
+    bg0:     #131313;
+    bg1:     #171717;
+    fg0:     #e0e0e0;
+    fg-dim:  #888888;
+    placeholder-color: #666666;
+    border-color:     transparent;
+    accent-color:     #ffffff;
+    urgent-color:     #111111;
+    background-color:   transparent;
+    text-color:         @fg0;
+    margin:     0;
+    padding:    0;
+    spacing:    0;
+    radius: 15px;
+}
+window {
+    location:   center;
+    width:      500;
+    background-color:   @bg0;
+    border-radius:      @radius;
+}
+inputbar {
+    spacing:    10px;
+    padding:    15px;
+    background-color:   @bg1;
+    border: 0px;
+    border-radius:      @radius;
+}
+prompt, entry, element-icon, element-text {
+    vertical-align: 0.5;
+}
+prompt {
+    text-color: @accent-color;
+    enabled: true;
+    text: "🔍";
+}
+textbox {
+    padding:            7px;
+    background-color:   @bg1;
+}
+listview {
+    fixed-height: false;
+    dynamic: true;
+    scrollbar: true;
+    spacing: -3px;
+    padding: 7px;
+    lines: 6;
+}
+entry {
+    text-color: #ffffff;
+    font:   inherit;
+    placeholder         : "O que está procurando hoje?";
+    placeholder-color   : @placeholder-color;
+}
+element {
+    padding:    9px 15px 9px 15px;
+    spacing:    4px;
+}
+element normal normal {
+    text-color: @fg-dim;
+}
+element normal urgent {
+    text-color: @urgent-color;
+}
+element normal active {
+    text-color: @accent-color;
+}
+element alternate normal {
+    text-color: @fg-dim;
+}
+element alternate active {
+    text-color: @accent-color;
+}
+element selected {
+    padding:    7px;
+    text-color: #ffffff;
+}
+element selected normal, element selected active {
+    background-color:   #2a2a2a;
+    border-radius:      7px;
+    text-color:         #ffffff;
+}
+element selected urgent {
+    background-color:   @urgent-color;
+}
+element-icon {
+    size:           1.4em;
+    vertical-align: 0.5;
+}
+element-text {
+    font:       "Cascadia Code 12.5";
+    text-color: inherit;
+    highlight:  bold;
+}

@@ -101,7 +101,7 @@ install_dotfiles() {
     done
 
     echo "Linkando dotfiles..."
-    cd "$DOTFILES_DIR" && stow fish rofi zed fastfetch mangohud alacrittyfonts
+    cd "$DOTFILES_DIR" && stow fish rofi zed fastfetch mangohud alacritty fonts
 
     echo "Atualizando cache de fontes..."
     fc-cache -fv
