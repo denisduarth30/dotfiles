@@ -1,4 +1,4 @@
-import = ["~/.config/alacritty/themes/ash.toml"]
+import = ["~/.config/alacritty/themes/dark-theme.toml"]
 
 [font]
 size = 12.0
