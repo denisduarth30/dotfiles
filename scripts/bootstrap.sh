@@ -49,6 +49,7 @@ install_apt() {
         stow
         papirus-folders
         papirus-icon-theme
+        zram-tools
     )
 
     for PKG in "${PKGS[@]}"; do
@@ -118,7 +119,26 @@ set_default_shell() {
     fi
 }
 
+config_zram() {
+    local ZRAM_CONFIG_PATH="/etc/default/zram-tools"
+
+    if ! [ -f "$ZRAM_CONFIG_PATH" ]; then
+        echo "zram-tools não encontrado, instalando..."
+        sudo apt install -y zram-tools
+    fi
+
+    echo "Configurando ZRAM..."
+    echo "ALGO=lz4" | sudo tee -a "$ZRAM_CONFIG_PATH"
+    echo "PERCENT=25" | sudo tee -a "$ZRAM_CONFIG_PATH"
+
+    echo "Reiniciando ZRAM..."
+    sudo systemctl restart zram-config
+
+    echo "ZRAM configurado com sucesso!"
+}
+
 install_apt
 set_swappiness
 install_dotfiles
 set_default_shell
+config_zram
