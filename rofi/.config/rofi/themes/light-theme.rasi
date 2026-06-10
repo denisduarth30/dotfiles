@@ -34,7 +34,6 @@ prompt, entry, element-icon, element-text {
 prompt {
     text-color: @accent-color;
     enabled: true;
-    text: "🔍";
 }
 textbox {
     padding:            7px;
@@ -51,8 +50,8 @@ listview {
 entry {
     text-color: #000000;
     font:   inherit;
-    placeholder         : "O que está procurando hoje?";
     placeholder-color   : @placeholder-color;
+    placeholder: "teste fixo";
 }
 element {
     padding:    9px 15px 9px 15px;
