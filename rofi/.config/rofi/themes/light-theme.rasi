@@ -1,10 +1,10 @@
 * {
-    font:   "Cascadia Code 15";
+    font:   "Cascadia Code 14";
     bg0:     #ffffff;
     bg1:     #f0f0f0;
     fg0:     #555555;
     fg-dim:  #a0a0a0;
-    placeholder-color: #a0a0a0;
+    placeholder-color: #c0c0c0;
     border-color:     transparent;
     accent-color:     #555555;
     urgent-color:     #ffffff;
@@ -13,11 +13,12 @@
     margin:     0;
     padding:    0;
     spacing:    0;
-    radius: 15px;
+    radius: 20px;
+    inner-radius: calc(20px - 7px);
 }
 window {
     location:   center;
-    width:      500;
+    width:      640;
     background-color:   @bg0;
     border-radius:      @radius;
 }
@@ -25,7 +26,6 @@ inputbar {
     spacing:    10px;
     padding:    15px;
     background-color:   #ffffff;
-    border: 0px;
     border-radius:      @radius;
 }
 prompt, entry, element-icon, element-text {
@@ -77,19 +77,19 @@ element selected {
     text-color: #000000;
 }
 element selected normal, element selected active {
-    background-color:   #d0d0d0;
-    border-radius:      7px;
+    background-color:   #e0e0e0;
+    border-radius:      @inner-radius;
     text-color:         #000000;
 }
 element selected urgent {
     background-color:   @urgent-color;
 }
 element-icon {
-    size:           1.4em;
+    size:           1.35em;
     vertical-align: 0.5;
 }
 element-text {
-    font:       "Cascadia Code 12.5";
+    font:       "Cascadia Code 13";
     text-color: inherit;
     highlight:  bold;
 }
