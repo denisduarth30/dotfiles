@@ -1,9 +1,9 @@
 configuration {
-    modi: "drun,run,busca:/home/denis/.config/fish/functions/rofi-search.fish";
+    modi: "drun,run,web:/home/denis/.config/fish/functions/rofi-search.fish";
     display-drun: "🔍️";
     display-window: "🪟​";
     display-filebrowser: "🗂️​";
-    display-busca: "🌐​";
+    display-web: "🌐​";
     display-run: "🖥️";
     display-combi: "⭐️";
     show-icons: true;
