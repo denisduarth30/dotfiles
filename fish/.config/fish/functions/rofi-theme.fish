@@ -129,4 +129,14 @@ set theme_tmp /tmp/rofi-theme-tmp.rasi
 
 sed "s/placeholder: \".*\"/placeholder: \"$phrases[$index]\"/" $theme_selected > $theme_tmp
 
-rofi -show drun -theme $theme_tmp
+set -l mode "combi"
+if test (count $argv) -gt 0; and test $argv[1] = "web"
+    set mode "web"
+end
+
+rofi -show $mode \
+     -modi "web:$HOME/.config/fish/functions/rofi-search.fish" \
+     -combi-modi "drun,run,ssh,web:$HOME/.config/fish/functions/rofi-search.fish" \
+     -theme $theme_tmp \
+     -combi-hide-mode-prefix \
+     -no-custom
