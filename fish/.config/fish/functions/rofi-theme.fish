@@ -23,7 +23,7 @@ else
     set theme_selected $light_theme
 end
 
-set frases \
+set phrases \
     "O que vamos fazer hoje?" \
     "Bora codar?" \
     "Digite algo para buscar..." \
@@ -124,12 +124,9 @@ set frases \
     "Qual app você vai redescobrir hoje?" \
     "Abre algo incrível."
 
-set indice (random 1 (count $frases))
-echo "indice: $indice"
-echo "frase: $frases[$indice]"
+set index (random 1 (count $phrases))
+set theme_tmp /tmp/rofi-theme-tmp.rasi
 
-set tema_tmp /tmp/rofi-theme-tmp.rasi
+sed "s/placeholder: \".*\"/placeholder: \"$phrases[$index]\"/" $theme_selected > $theme_tmp
 
-sed "s/placeholder: \".*\"/placeholder: \"$frases[$indice]\"/" $theme_selected > $tema_tmp
-
-rofi -show drun -theme $tema_tmp
+rofi -show drun -theme $theme_tmp
