@@ -27,6 +27,7 @@ function dwd_mp3_playlists --description "Baixa múltiplas playlists em MP3"
             --embed-metadata \
             --embed-thumbnail \
             --js-runtime deno \
+            --no-warnings \
             --output "$base_dir/%(playlist_title)s/%(playlist_index)02d - %(title)s.%(ext)s" \
             $url
 

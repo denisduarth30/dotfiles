@@ -61,6 +61,7 @@ function dwd_mp4_videos --description "Baixa vídeo(s) em MP4 de uma ou mais URL
             --embed-thumbnail \
             --js-runtimes deno \
             --embed-subs \
+            --no-warnings \
             --output "$base_dir/%(title)s.%(ext)s" \
             $url
 
