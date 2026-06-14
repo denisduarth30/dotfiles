@@ -1,5 +1,7 @@
+/* /home/denis/dotfiles/rofi/.config/rofi/themes/dark-theme.rasi */
+
 * {
-    font:   "Cascadia Code 14";
+    font:   "CommitMono Nerd Font 14";
     bg0:     #131313;
     bg1:     #171717;
     fg0:     #e0e0e0;
@@ -18,18 +20,18 @@
 }
 window {
     location:   center;
-    width:      640;
+    width:      500;
     background-color:   @bg0;
     border-radius:      @radius;
 }
 inputbar {
-    spacing:    10px;
-    padding:    15px;
+    spacing:    20px;
+    padding:    20px;
     background-color:   @bg1;
     border: 0px;
     border-radius:      @radius;
 }
-prompt, entry, element-icon, element-text {
+prompt, entry {
     vertical-align: 0.5;
 }
 prompt {
@@ -50,13 +52,13 @@ listview {
 }
 entry {
     text-color: #ffffff;
-    font:   inherit;
     placeholder-color   : @placeholder-color;
     placeholder: "teste fixo";
 }
 element {
+    /* Padding consistente para manter tudo alinhado */
     padding:    9px 15px 9px 15px;
-    spacing:    4px;
+    spacing:    10px; /* Um pouco mais de espaço entre o ícone e o texto */
 }
 element normal normal {
     text-color: @fg-dim;
@@ -74,7 +76,7 @@ element alternate active {
     text-color: @accent-color;
 }
 element selected {
-    padding:    7px;
+    /* Removido o padding: 7px que quebrava o alinhamento */
     text-color: #ffffff;
 }
 element selected normal, element selected active {
@@ -86,11 +88,18 @@ element selected urgent {
     background-color:   @urgent-color;
 }
 element-icon {
-    size:           1.35em;
-    vertical-align: 0.5;
+    size:               1.35em;
+    vertical-align:     0.5;
+    horizontal-align:   0.0;
 }
 element-text {
-    font:       "Cascadia Code 13";
-    text-color: inherit;
-    highlight:  bold;
+    font:               "CommitMono Nerd Font 12";
+    text-color:         inherit;
+    highlight:          bold;
+    vertical-align:     0.5;
+    horizontal-align:   0.0;
+}
+element-text selected {
+    font:               "CommitMono Nerd Font Bold 12";
+    text-color:         inherit;
 }

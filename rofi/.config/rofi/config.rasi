@@ -1,14 +1,16 @@
 configuration {
-    modi: "drun,run,web:/home/denis/.config/fish/functions/rofi-search.fish";
-    display-drun: "🔍️";
+    font: "CommitMono Nerd Font 14";
+    modi: "drun,web:/home/denis/.config/fish/functions/rofi-search.fish";
+    display-drun: "";
     display-window: "🪟​";
     display-filebrowser: "🗂️​";
-    display-web: "🌐​";
-    display-run: "🖥️";
-    display-combi: "⭐️";
+    display-web: "󰖟";
+    display-run: "";
+    display-combi: "";
     show-icons: true;
     drun-display-format: "{icon} {name}";
-    terminal: "alacritty";
+    web-display-format: "{name}";
     disable-history: false;
-    font: "FiraCode Nerd Font 12";
+    terminal: "alacritty";
+    run-command: "{cmd}";
 }

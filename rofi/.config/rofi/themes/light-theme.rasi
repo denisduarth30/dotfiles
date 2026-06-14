@@ -1,5 +1,7 @@
+/* /home/denis/dotfiles/rofi/.config/rofi/themes/light-theme.rasi */
+
 * {
-    font:   "Cascadia Code 14";
+    font:   "CommitMono Nerd Font 14";
     bg0:     #ffffff;
     bg1:     #f0f0f0;
     fg0:     #555555;
@@ -18,14 +20,14 @@
 }
 window {
     location:   center;
-    width:      640;
+    width:      500;
     background-color:   @bg0;
     border-radius:      @radius;
 }
 inputbar {
-    spacing:    10px;
-    padding:    15px;
-    background-color:   #ffffff;
+    spacing:    20px;
+    padding:    20px;
+    background-color:   @bg1;
     border-radius:      @radius;
 }
 prompt, entry, element-icon, element-text {
@@ -48,7 +50,8 @@ listview {
     lines:6;
 }
 entry {
-    text-color: #000000;
+    font:   "CommitMono Nerd Font 16";
+    text-color: inherit;
     font:   inherit;
     placeholder-color   : @placeholder-color;
     placeholder: "teste fixo";
@@ -86,10 +89,10 @@ element selected urgent {
 }
 element-icon {
     size:           1.35em;
-    vertical-align: 0.5;
+    vertical-align: 0.0;
 }
 element-text {
-    font:       "Cascadia Code 13";
+    font:       "CommitMono Nerd Font 13";
     text-color: inherit;
     highlight:  bold;
 }
