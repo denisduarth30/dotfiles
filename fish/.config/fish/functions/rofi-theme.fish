@@ -129,14 +129,25 @@ set theme_tmp /tmp/rofi-theme-tmp.rasi
 
 sed "s/placeholder: \".*\"/placeholder: \"$phrases[$index]\"/" $theme_selected > $theme_tmp
 
-set -l mode "combi"
-if test (count $argv) -gt 0; and test $argv[1] = "web"
-    set mode "web"
+set -x ROFI_PRIVATE_SEARCH false
+if contains -- "-p" $argv
+    set -x ROFI_PRIVATE_SEARCH true
 end
 
-rofi -show $mode \
-     -modi "web:$HOME/.config/fish/functions/rofi-search.fish" \
-     -combi-modi "drun,run,ssh,web:$HOME/.config/fish/functions/rofi-search.fish" \
-     -theme $theme_tmp \
-     -combi-hide-mode-prefix \
-     -no-custom
+set -l mode combi
+if contains -- "web" $argv
+    set mode web
+end
+
+if test "$mode" = web
+    rofi -show web \
+         -combi-modi "drun,web:$HOME/.config/fish/functions/rofi-search.fish" \
+         -theme $theme_tmp \
+         -theme-str 'element-icon { enabled: false; } element { spacing: 0px; }'
+else
+    rofi -show combi \
+         -combi-modi "drun,web:$HOME/.config/fish/functions/rofi-search.fish" \
+         -theme $theme_tmp \
+         -combi-hide-mode-prefix \
+         -no-custom
+end
