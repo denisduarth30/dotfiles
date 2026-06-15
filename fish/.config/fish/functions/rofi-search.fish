@@ -7,9 +7,9 @@ set STATE_FILE /tmp/rofi-search-state
 set NAMES \
     "Google" "YouTube" "X" "Google Images" "DuckDuckGo" \
     "GitHub" "GitLab" "Google Translate" "Wikipedia" \
-    "Facebook Marketplace"
+    "Facebook Marketplace" "Amazon" "Pinterest"
 
-set ICONS "" "" "" "󰋩" "󰇥" "" "" "󰊿" "󰖬" ""
+set ICONS "" "" "" "󰋩" "󰇥" "" "" "󰊿" "󰖬" "" "" ""
 
 set URLS \
     "https://www.google.com/search?q=" \
@@ -21,9 +21,11 @@ set URLS \
     "https://gitlab.com/search?search=" \
     "https://translate.google.com/?sl=auto&tl=pt&text=" \
     "https://pt.wikipedia.org/w/index.php?search=" \
-    "https://www.facebook.com/marketplace/108568625834990/search/?query="
+    "https://www.facebook.com/marketplace/108568625834990/search/?query=" \
+    "https://www.amazon.com.br/s?k=" \
+    "https://br.pinterest.com/search/pins/?q="
 
-set BANGS "!g" "!yt" "!x" "!img" "!ddg" "!gh" "!gl" "!tr" "!wp" "!fb"
+set BANGS "!g" "!yt" "!x" "!img" "!ddg" "!gh" "!gl" "!tr" "!wp" "!fb" "!am" "!ptr"
 set LISTS_COUNT (count $NAMES)
 
 set theme_arg
@@ -51,7 +53,7 @@ if test (count $argv) -eq 0
 
     printf "\x00prompt\x1f%s\n" "$prompt_msg"
     printf "\x00no-custom\x1ftrue\n"
-    for i in (seq 1 9)
+    for i in (seq 1 $LISTS_COUNT)
         printf "%s  %s%s\x00info\x1f%s\n" $ICONS[$i] $NAMES[$i] $suffix $URLS[$i]
     end
     exit 0
@@ -67,7 +69,7 @@ if test "$argv[1]" = "--query"
     set name $lines[2]
     set prompt_text $name
 
-    for i in (seq 1 (count $NAMES))
+    for i in (seq 1 $LISTS_COUNT)
         if test "$NAMES[$i]" = "$name"
             if test -n "$ICONS[$i]"
                 set prompt_text "$ICONS[$i]"
@@ -81,11 +83,10 @@ if test "$argv[1]" = "--query"
         set is_private true
     end
 
-    # Abre a segunda tela apenas com o ícone
     set query (rofi -dmenu -i -p "$prompt_text " $theme_arg)
     or exit
 
-    launch $url $query $is_private
+    launch "$url" "$query" "$is_private"
     exit 0
 end
 
@@ -141,16 +142,16 @@ if string match -q '!*' $input
     end
 
     if test -n "$query"
-        launch $url $query $private
+        launch "$url" "$query" "$private"
     else
         set query (rofi -dmenu -i -p "Buscando:" $theme_arg)
         or exit
-        launch $url $query $private
+        launch "$url" "$query" "$private"
     end
 else
     set private false
     if test "$ROFI_PRIVATE_SEARCH" = "true"
         set private true
     end
-    launch $DEFAULT_URL $input $private
+    launch "$DEFAULT_URL" "$input" "$private"
 end
