@@ -122,7 +122,118 @@ set phrases \
     "Tô aqui, pode pedir." \
     "O que resolve seu problema agora?" \
     "Qual app você vai redescobrir hoje?" \
-    "Abre algo incrível."
+    "Abre algo incrível." \
+    "Web ou localhost? Onde vamos?" \
+    "A resposta tá no Google ou no Stack?" \
+    "Digite sua query existencial..." \
+    "Google, DDG ou o de sempre?" \
+    "Pesquisar na gringa ou em PT?" \
+    "O que a internet sabe sobre isso?" \
+    "Rofi está pronto para a busca." \
+    "Qual segredo a web esconde hoje?" \
+    "Digitando... procurando... achando?" \
+    "De volta à matrix da web..." \
+    "O que você quer decifrar agora?" \
+    "Procurando soluções rápidas..." \
+    "Menos reuniões, mais código. O que abre?" \
+    "Aquela pesquisa de 5 segundos que vira 2 horas..." \
+    "O que o mestre do código deseja?" \
+    "Navegando na maré do Fish..." \
+    "Procurar erro de sintaxe ou erro de lógica?" \
+    "Pronto para lançar o buscador." \
+    "O que você quer automatizar agora?" \
+    "Foco total ou modo aleatório?" \
+    "Mais uma pesquisa pro histórico..." \
+    "O que você quer encontrar primeiro?" \
+    "Abre o terminal ou abre o navegador?" \
+    "Qual o seu termo de busca da vez?" \
+    "Procurando aquela documentação esquecida..." \
+    "Cadê o link que sumiu?" \
+    "O que o DuckDuckGo diria sobre isso?" \
+    "Buscando pacotes no repositório..." \
+    "Qual pacote AUR você quer instalar agora?" \
+    "O que o Arch Wiki diz?" \
+    "Configurando o sistema ou quebrando ele?" \
+    "Reiniciar o i3/Sway ou continuar codando?" \
+    "Qual workspace vamos usar?" \
+    "Mais um alias pro config.fish?" \
+    "Abre os dotfiles ou o projeto principal?" \
+    "O que está drenando sua bateria?" \
+    "Qual script vai salvar sua pele hoje?" \
+    "O terminal é seu Canvas. Digite." \
+    "Buscando threads no Reddit..." \
+    "O que o GitHub copilot sugeriria aqui?" \
+    "Código limpo ou código que funciona?" \
+    "Falta uma aspa em algum lugar?" \
+    "O que o compilador reclamou?" \
+    "Qual o hash desse commit?" \
+    "git push --force? Tem certeza?" \
+    "Quem deu blame nessa linha?" \
+    "O servidor de homologação tá de pé?" \
+    "Qual API caiu no final de semana?" \
+    "Qual JSON veio quebrado hoje?" \
+    "Postman ou curl?" \
+    "Buscando o IP da máquina..." \
+    "Onde foi parar aquela chave SSH?" \
+    "Quantos containers estão rodando?" \
+    "O que o docker-compose.yml esconde?" \
+    "Abre o Neovim ou o VS Code?" \
+    "Qual plugin do Vim quebrou hoje?" \
+    "Qual atalho do tmux você esqueceu?" \
+    "Onde está o gargalo do sistema?" \
+    "Quantos giga de RAM o Chrome tá usando?" \
+    "Qual aba do navegador tá tocando música?" \
+    "Abre o Spotify ou o reprodutor local?" \
+    "O que tá tocando no terminal?" \
+    "Qual a playlist de foco hoje?" \
+    "O som tá saindo no fone certo?" \
+    "Bluetooth conectou de primeira?" \
+    "Qual o nível da bateria dos periféricos?" \
+    "O que a cronjob fez na última hora?" \
+    "Qual log do systemd vamos ler?" \
+    "Onde está o gargalo da CPU?" \
+    "Qual processo dar um kill -9?" \
+    "O gerenciador de janelas tá respondendo?" \
+    "Qual script do Rofi você quer rodar?" \
+    "O layout do teclado mudou sozinho?" \
+    "Onde está salvo aquele screenshot?" \
+    "Qual pasta do /home/ tá uma bagunça?" \
+    "Limpar o /tmp/ hoje ou deixar pra lá?" \
+    "Qual o tamanho da pasta node_modules?" \
+    "Abre o gerenciador de arquivos ou faz no CLI?" \
+    "Qual comando você copiou do StackOverflow?" \
+    "O script rodou de primeira ou deu ruim?" \
+    "Falta permissão de root?" \
+    "O que o chmod +x vai resolver hoje?" \
+    "Qual utilitário CLI você descobriu ontem?" \
+    "O que o fzf não encontrou?" \
+    "Qual histórico do Fish vamos revirar?" \
+    "Digite e deixe o Rofi fazer a mágica." \
+    "O que você vai criar do zero hoje?" \
+    "Qual o escopo do projeto de agora?" \
+    "Pronto para resolver o mistério?" \
+    "Abre a mente e digite." \
+    "Qual o destino final desse comando?" \
+    "Sua área de trabalho precisa de quê?" \
+    "Buscando insights na rede..." \
+    "A internet tá rápida o suficiente hoje?" \
+    "O que você precisa descobrir em 5 minutos?" \
+    "Qual o comando supremo de agora?" \
+    "Feche os olhos e digite (ou não)." \
+    "O Rofi está ao seu dispor." \
+    "O que o shell Fish vai pescar hoje?" \
+    "A jornada começa com um comando." \
+    "Qual o atalho para a felicidade?" \
+    "Digite seu destino..." \
+    "O sistema aguarda seu input." \
+    "Qual a última linha que você escreveu?" \
+    "Pronto para o próximo deploy da vida?" \
+    "Ativar modo hiperfoco." \
+    "Escreve aí, eu procuro." \
+    "Sua barra de pesquisa personalizada." \
+    "O que o coração de dev pede?" \
+    "E lá vamos nós para o terminal..." \
+    "Até o fim do arquivo..."
 
 set index (random 1 (count $phrases))
 set theme_tmp /tmp/rofi-theme-tmp.rasi
