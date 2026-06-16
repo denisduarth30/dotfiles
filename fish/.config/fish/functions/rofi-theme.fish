@@ -252,12 +252,12 @@ end
 
 if test "$mode" = web
     rofi -show web \
-         -combi-modi "drun,web:$HOME/.config/fish/functions/rofi-search.fish" \
+         -combi-modi "web:$HOME/.config/fish/functions/rofi-search.fish" \
          -theme $theme_tmp \
          -theme-str 'element-icon { enabled: false; } element { spacing: 0px; }'
 else
     rofi -show combi \
-         -combi-modi "drun,web:$HOME/.config/fish/functions/rofi-search.fish" \
+         -combi-modi "drun" \
          -theme $theme_tmp \
          -combi-hide-mode-prefix \
          -no-custom
