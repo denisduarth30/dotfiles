@@ -6,7 +6,7 @@
     bg1:     #f0f0f0;
     fg0:     #555555;
     fg-dim:  #a0a0a0;
-    placeholder-color: #c0c0c0;
+    placeholder-color: #b0b0b0;
     border-color:     transparent;
     accent-color:     #555555;
     urgent-color:     #ffffff;
@@ -26,7 +26,7 @@ window {
 }
 inputbar {
     spacing:    20px;
-    padding:    20px;
+    padding:    15px;
     background-color:   @bg1;
     border-radius:      @radius;
 }
@@ -34,19 +34,19 @@ prompt, entry, element-icon, element-text {
     vertical-align: 0.5;
 }
 prompt {
-    text-color: @accent-color;
+    text-color: @placeholder-color;
     enabled: true;
 }
 textbox {
-    padding:            7px;
+    padding:            5px;
     background-color:   @bg1;
 }
 listview {
     fixed-height: false;
     dynamic: true;
     scrollbar: true;
-    spacing: -3px;
-    padding: 7px;
+    spacing: -5px;
+    padding: 5px;
     lines:6;
 }
 entry {
@@ -88,7 +88,7 @@ element selected urgent {
     background-color:   @urgent-color;
 }
 element-icon {
-    size:           1.35em;
+    size:           1.4em;
     vertical-align: 0.0;
 }
 element-text {

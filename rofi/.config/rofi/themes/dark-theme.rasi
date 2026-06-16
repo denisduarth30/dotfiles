@@ -26,7 +26,7 @@ window {
 }
 inputbar {
     spacing:    20px;
-    padding:    20px;
+    padding:    15px;
     background-color:   @bg1;
     border: 0px;
     border-radius:      @radius;
@@ -39,15 +39,15 @@ prompt {
     enabled: true;
 }
 textbox {
-    padding:            7px;
+    padding:            5px;
     background-color:   @bg1;
 }
 listview {
     fixed-height: false;
     dynamic: true;
     scrollbar: true;
-    spacing: -3px;
-    padding: 7px;
+    spacing: -5px;
+    padding: 5px;
     lines: 6;
 }
 entry {
@@ -88,7 +88,7 @@ element selected urgent {
     background-color:   @urgent-color;
 }
 element-icon {
-    size:               1.35em;
+    size:               1.4em;
     vertical-align:     0.5;
     horizontal-align:   0.0;
 }
