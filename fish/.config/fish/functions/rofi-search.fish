@@ -7,9 +7,9 @@ set STATE_FILE /tmp/rofi-search-state
 set NAMES \
     "Google" "YouTube" "X" "Google Images" "DuckDuckGo" \
     "GitHub" "GitLab" "Google Translate" "Wikipedia" \
-    "Facebook Marketplace" "Amazon" "Pinterest"
+    "Facebook Marketplace" "Amazon" "Pinterest" "Steam" "ProtonDB"
 
-set ICONS "" "" "" "󰋩" "󰇥" "" "" "󰊿" "󰖬" "" "" ""
+set ICONS "" "" "" "󰋩" "󰇥" "" "" "󰊿" "󰖬" "" "" "" "" ""
 
 set URLS \
     "https://www.google.com/search?q=" \
@@ -23,9 +23,11 @@ set URLS \
     "https://pt.wikipedia.org/w/index.php?search=" \
     "https://www.facebook.com/marketplace/108568625834990/search/?query=" \
     "https://www.amazon.com.br/s?k=" \
-    "https://br.pinterest.com/search/pins/?q="
+    "https://br.pinterest.com/search/pins/?q=" \
+    "https://store.steampowered.com/search?term=" \
+    "https://www.protondb.com/search?q="
 
-set BANGS "!g" "!yt" "!x" "!img" "!ddg" "!gh" "!gl" "!tr" "!wp" "!fb" "!am" "!ptr"
+set BANGS "!g" "!yt" "!x" "!img" "!ddg" "!gh" "!gl" "!tr" "!wp" "!fb" "!am" "!ptr" "!st" "!ptdb"
 set LISTS_COUNT (count $NAMES)
 
 set theme_arg
