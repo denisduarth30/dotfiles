@@ -27,7 +27,7 @@
   "buffer_font_family": "CommitMono",
   "icon_theme": {
     "mode": "light",
-    "light": "Zed (Default)",
+    "light": "Material Icon Theme",
     "dark": "Zed (Default)",
   },
   "ui_font_size": 14.0,
@@ -35,6 +35,6 @@
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "Monolith Dark",
+    "dark": "Dark+ Contrast",
   },
 }
