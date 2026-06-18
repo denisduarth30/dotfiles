@@ -1,6 +1,6 @@
 configuration {
     font: "CommitMono Nerd Font 14";
-    modi: "drun,web:/home/denis/.config/fish/functions/rofi-search.fish";
+    modi: "drun,web:/home/denis/.config/fish/functions/rofi-search.fish, run:/home/denis/.config/fish/functions/rofi-run.fish";
     display-drun: "";
     display-window: "🪟​";
     display-filebrowser: "🗂️​";
@@ -12,5 +12,4 @@ configuration {
     web-display-format: "{name}";
     disable-history: false;
     terminal: "alacritty";
-    run-command: "{cmd}";
 }
