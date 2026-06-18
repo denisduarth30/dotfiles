@@ -7,9 +7,10 @@ set STATE_FILE /tmp/rofi-search-state
 set NAMES \
     "Google" "YouTube" "X" "Google Images" "DuckDuckGo" \
     "GitHub" "GitLab" "Google Translate" "Wikipedia" \
-    "Facebook Marketplace" "Amazon" "Pinterest" "Steam" "ProtonDB"
+    "Facebook Marketplace" "Amazon" "Pinterest" "Steam" "ProtonDB" \
+    "Reddit" "Anna's Archive"
 
-set ICONS "" "" "" "󰋩" "󰇥" "" "" "󰊿" "󰖬" "" "" "" "" ""
+set ICONS "" "" "" "󰋩" "󰇥" "" "" "󰊿" "󰖬" "" "" "" "" "" "" ""
 
 set URLS \
     "https://www.google.com/search?q=" \
@@ -25,9 +26,11 @@ set URLS \
     "https://www.amazon.com.br/s?k=" \
     "https://br.pinterest.com/search/pins/?q=" \
     "https://store.steampowered.com/search?term=" \
-    "https://www.protondb.com/search?q="
+    "https://www.protondb.com/search?q=" \
+    "https://www.reddit.com/search/?q=" \
+    "https://annas-archive.pk/search?q="
 
-set BANGS "!g" "!yt" "!x" "!img" "!ddg" "!gh" "!gl" "!tr" "!wp" "!fb" "!am" "!ptr" "!st" "!ptdb"
+set BANGS "!g" "!yt" "!x" "!img" "!ddg" "!gh" "!gl" "!tr" "!wp" "!fb" "!am" "!ptr" "!st" "!ptdb" "!rd" "!annas"
 set LISTS_COUNT (count $NAMES)
 
 set theme_arg
