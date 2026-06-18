@@ -16,7 +16,6 @@
     padding:    0;
     spacing:    0;
     radius: 20px;
-    inner-radius: calc(20px - 7px);
 }
 window {
     location:   center;
@@ -26,7 +25,7 @@ window {
 }
 inputbar {
     spacing:    20px;
-    padding:    15px;
+    padding:    20px;
     background-color:   @bg1;
     border-radius:      @radius;
 }
@@ -81,7 +80,7 @@ element selected {
 }
 element selected normal, element selected active {
     background-color:   #e0e0e0;
-    border-radius:      @inner-radius;
+    border-radius:      @radius;
     text-color:         #000000;
 }
 element selected urgent {
