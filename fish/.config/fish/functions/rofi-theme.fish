@@ -250,11 +250,20 @@ if contains -- "web" $argv
     set mode web
 end
 
+if contains -- "run" $argv
+    set mode run
+end
+
 if test "$mode" = web
     rofi -show web \
          -combi-modi "web:$HOME/.config/fish/functions/rofi-search.fish" \
          -theme $theme_tmp \
          -theme-str 'element-icon { enabled: false; } element { spacing: 0px; }'
+else if test "$mode" = run
+    rofi -show run \
+        -modi "run:$HOME/.config/fish/functions/rofi-run.fish" \
+        -theme $theme_tmp \
+        -theme-str 'element-icon { enabled: false; } element { spacing: 0px; }'
 else
     rofi -show combi \
          -combi-modi "drun" \
