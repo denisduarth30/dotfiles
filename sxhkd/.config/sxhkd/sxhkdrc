@@ -1,0 +1,11 @@
+super + Escape
+    fish /home/denis/.config/fish/functions/rofi/rofi-theme.fish
+
+super + w
+    fish /home/denis/.config/fish/functions/rofi/rofi-theme.fish web -p
+
+super + s
+    fish /home/denis/.config/fish/functions/rofi/rofi-theme.fish web
+
+super + r
+    fish /home/denis/.config/fish/functions/rofi/rofi-theme.fish run
