@@ -15,4 +15,7 @@ bash "$DOTFILES/scripts/python.sh"
 echo "Definindo configurações de área de trabalho..."
 bash "$DOTFILES/scripts/appearance.sh"
 
-echo "Finalizado."
+echo "Configurando atalhos do Rofi..."
+bash "$DOTFILES/scripts/autostart.sh"
+
+echo "Finalizado. Faça logout e login novamente para aplicar as configurações."
