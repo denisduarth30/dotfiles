@@ -50,6 +50,7 @@ install_apt() {
         papirus-folders
         papirus-icon-theme
         zram-tools
+        sxhkd
     )
 
     for PKG in "${PKGS[@]}"; do
@@ -91,6 +92,7 @@ install_dotfiles() {
         "$HOME/.config/MangoHud"
         "$HOME/.config/alacritty"
         "$HOME/.fonts"
+        "$HOME/.config/sxhkd"
     )
     for target in "${targets[@]}"; do
         if [ -L "$target" ]; then
@@ -102,7 +104,7 @@ install_dotfiles() {
     done
 
     echo "Linkando dotfiles..."
-    cd "$DOTFILES_DIR" && stow fish rofi zed fastfetch mangohud alacritty fonts
+    cd "$DOTFILES_DIR" && stow fish rofi zed fastfetch mangohud alacritty fonts sxhkd
 
     echo "Atualizando cache de fontes..."
     fc-cache -fv
