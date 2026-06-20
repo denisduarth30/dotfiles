@@ -3,7 +3,7 @@
 * {
     font:   "CommitMono Nerd Font 14";
     bg0:     #131313;
-    bg1:     #171717;
+    bg1:     #1e1e1e;
     fg0:     #e0e0e0;
     fg-dim:  #888888;
     placeholder-color: #444444;
@@ -34,7 +34,7 @@ prompt, entry {
     vertical-align: 0.5;
 }
 prompt {
-    text-color: @accent-color;
+    text-color: @placeholder-color;
     enabled: true;
 }
 textbox {
@@ -45,7 +45,7 @@ listview {
     fixed-height: false;
     dynamic: true;
     scrollbar: true;
-    spacing: -5px;
+    spacing: -2px;
     padding: 5px;
     lines: 6;
 }
@@ -79,7 +79,7 @@ element selected {
     text-color: #ffffff;
 }
 element selected normal, element selected active {
-    background-color:   #1a1a1a;
+    background-color:   @bg1;
     border-radius:      @radius;
     text-color:         #ffffff;
 }

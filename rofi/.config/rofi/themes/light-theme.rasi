@@ -44,7 +44,7 @@ listview {
     fixed-height: false;
     dynamic: true;
     scrollbar: true;
-    spacing: -5px;
+    spacing: -2px;
     padding: 5px;
     lines:6;
 }
@@ -79,7 +79,7 @@ element selected {
     text-color: #000000;
 }
 element selected normal, element selected active {
-    background-color:   #e0e0e0;
+    background-color:   @bg1;
     border-radius:      @radius;
     text-color:         #000000;
 }
