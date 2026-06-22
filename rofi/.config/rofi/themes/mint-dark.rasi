@@ -15,7 +15,7 @@
     margin:     0;
     padding:    0;
     spacing:    0;
-    radius: 20px;
+    radius: 30px;
 }
 window {
     location:   center;
@@ -27,7 +27,6 @@ inputbar {
     spacing:    20px;
     padding:    20px;
     background-color:   @bg0;
-    border: 0px;
     border-radius:      @radius;
 }
 prompt, entry {
@@ -46,7 +45,7 @@ listview {
     dynamic: true;
     scrollbar: true;
     spacing: -2px;
-    padding: 5px;
+    padding: 7px 5px 10px 10px;
     lines: 6;
 }
 entry {
@@ -55,9 +54,8 @@ entry {
     placeholder: "teste fixo";
 }
 element {
-    /* Padding consistente para manter tudo alinhado */
-    padding:    9px 15px 9px 15px;
-    spacing:    10px; /* Um pouco mais de espaço entre o ícone e o texto */
+    padding:    7px 15px 7px 15px;
+    spacing:    5px;
 }
 element normal normal {
     text-color: @fg-dim;
@@ -75,7 +73,6 @@ element alternate active {
     text-color: @accent-color;
 }
 element selected {
-    /* Removido o padding: 7px que quebrava o alinhamento */
     text-color: #ffffff;
 }
 element selected normal, element selected active {

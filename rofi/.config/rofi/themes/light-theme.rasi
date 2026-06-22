@@ -3,7 +3,7 @@
 * {
     font:   "CommitMono Nerd Font 14";
     bg0:     #ffffff;
-    bg1:     #f0f0f0;
+    bg1:     #d0d0d0;
     fg0:     #555555;
     fg-dim:  #a0a0a0;
     placeholder-color: #b0b0b0;
@@ -15,7 +15,7 @@
     margin:     0;
     padding:    0;
     spacing:    0;
-    radius: 20px;
+    radius: 30px;
 }
 window {
     location:   center;
@@ -26,7 +26,7 @@ window {
 inputbar {
     spacing:    20px;
     padding:    20px;
-    background-color:   @bg1;
+    background-color:   @bg0;
     border-radius:      @radius;
 }
 prompt, entry, element-icon, element-text {
@@ -45,19 +45,18 @@ listview {
     dynamic: true;
     scrollbar: true;
     spacing: -2px;
-    padding: 5px;
-    lines:6;
+    padding: 7px 5px 10px 10px;
+    lines: 6;
 }
 entry {
-    font:   "CommitMono Nerd Font 16";
     text-color: inherit;
     font:   inherit;
     placeholder-color   : @placeholder-color;
     placeholder: "teste fixo";
 }
 element {
-    padding:    9px 15px 9px 15px;
-    spacing:    4px;
+    padding:    7px 15px 7px 15px;
+    spacing:    5px;
 }
 element normal normal {
     text-color: @fg-dim;
@@ -75,7 +74,6 @@ element alternate active {
     text-color: @accent-color;
 }
 element selected {
-    padding:    7px;
     text-color: #000000;
 }
 element selected normal, element selected active {
@@ -89,9 +87,15 @@ element selected urgent {
 element-icon {
     size:           1.4em;
     vertical-align: 0.0;
+    horizontal-align:   0.0;
 }
 element-text {
-    font:       "CommitMono Nerd Font 13";
+    font:       "CommitMono Nerd Font 12";
     text-color: inherit;
     highlight:  bold;
+    vertical-align:     0.5;
+}
+element-text selected {
+    font:               "CommitMono Nerd Font Bold 12";
+    text-color:         inherit;
 }
