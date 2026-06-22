@@ -1,12 +1,13 @@
 configuration {
     font: "CommitMono Nerd Font 14";
-    modi: "drun,web:/home/denis/.config/fish/functions/rofi/rofi-search.fish, run:/home/denis/.config/fish/functions/rofi/rofi-run.fish";
+    modi: "drun,web:/home/denis/.config/fish/functions/rofi/rofi-search.fish, run:/home/denis/.config/fish/functions/rofi/rofi-run.fish, ani-cli:/home/denis/.config/fish/functions/rofi/rofi-ani-cli.fish";
     display-drun: "";
     display-window: "🪟​";
     display-filebrowser: "🗂️​";
     display-web: "󰖟";
     display-run: "";
     display-combi: "";
+    display-ani-cli: "󰋖";
     show-icons: true;
     drun-display-format: "{icon} {name}";
     web-display-format: "{name}";
