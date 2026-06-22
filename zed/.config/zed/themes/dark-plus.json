@@ -122,7 +122,7 @@
         "warning.background": "#2C2200",
         "warning.background.hover": "#3A2D00",
 
-        "terminal.background": "#141414",
+        "terminal.background": "#1c1c1c",
         "terminal.foreground": "#E8E8E8",
         "terminal.bright_foreground": "#FFFFFF",
         "terminal.dim_foreground": "#909090",
