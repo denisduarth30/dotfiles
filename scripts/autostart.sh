@@ -1,61 +1,79 @@
 #!/bin/bash
+set -euo pipefail
 
-echo "🚀 Iniciando a configuração dos atalhos do Rofi..."
+SYSTEMD_USER_DIR="$HOME/.config/systemd/user"
+AUTOSTART_DIR="$HOME/.config/autostart"
 
-install_keysuperkey() {
-    echo "Compilando ksuperkey a partir do fonte..."
-    sudo apt install git gcc make libx11-dev libxtst-dev pkg-config
+echo "Iniciando a configuração dos atalhos do Rofi..."
 
-    cd /tmp
-    rm -rf ksuperkey
-    git clone https://github.com/hanschen/ksuperkey.git
-    cd ksuperkey
-    make
-    sudo make install
-
-    cd - > /dev/null
-}
-
-if ! command -v sxhkd &> /dev/null; then
+if ! command -v sxhkd &>/dev/null; then
     echo "Instalando sxhkd..."
     sudo apt update && sudo apt install -y sxhkd
 fi
 
-if ! command -v ksuperkey &> /dev/null; then
-    echo "Instalando ksuperkey..."
-    install_keysuperkey
+if ! command -v xcape &>/dev/null; then
+    echo "Instalando xcape..."
+    sudo apt install -y xcape
 fi
 
-mkdir -p "$HOME/.config/autostart"
+for old in "$AUTOSTART_DIR/sxhkd.desktop" "$AUTOSTART_DIR/ksuperkey.desktop"; do
+    if [[ -f "$old" ]]; then
+        echo "Removendo arquivo legado: $old"
+        rm -f "$old"
+    fi
+done
 
-echo "Configurando inicialização automática do sxhkd..."
-cat <<EOF > "$HOME/.config/autostart/sxhkd.desktop"
-[Desktop Entry]
-Type=Application
-Exec=sh -c "sleep 2 && sxhkd"
-Hidden=false
-NoDisplay=false
-X-GNOME-Autostart-enabled=true
-Name=sxhkd
-Comment=Gerenciador de atalhos do Rofi
+pkill -x ksuperkey 2>/dev/null && echo "ksuperkey parado" || true
+
+mkdir -p "$SYSTEMD_USER_DIR"
+
+echo "Criando xcape.service..."
+cat > "$SYSTEMD_USER_DIR/xcape.service" <<'EOF'
+[Unit]
+Description=xcape – mapeia toque no Super para Super+Escape
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/xcape -e 'Super_L=Super_L|Escape'
+Restart=always
+RestartSec=2
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=graphical-session.target
 EOF
 
-echo "Configurando inicialização automática do ksuperkey..."
-cat <<EOF > "$HOME/.config/autostart/ksuperkey.desktop"
-[Desktop Entry]
-Type=Application
-Exec=ksuperkey -e 'Super_L=Super_L|Escape'
-Hidden=false
-NoDisplay=false
-X-GNOME-Autostart-enabled=true
-Name=ksuperkey
-Comment=Mapeia toque na tecla Super para Super+Escape
+echo "Criando sxhkd.service..."
+cat > "$SYSTEMD_USER_DIR/sxhkd.service" <<'EOF'
+[Unit]
+Description=sxhkd – hotkey daemon
+After=xcape.service
+Requires=xcape.service
+
+[Service]
+ExecStartPre=/bin/sleep 2
+ExecStart=/usr/bin/sxhkd
+Restart=always
+RestartSec=2
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=graphical-session.target
 EOF
 
-echo "🔄 Iniciando os serviços em segundo plano..."
-pkill -x sxhkd
-pkill -x ksuperkey
-nohup sxhkd > /dev/null 2>&1 &
-nohup ksuperkey -e 'Super_L=Super_L|Escape' > /dev/null 2>&1 &
+echo "Recarregando daemon do systemd..."
+systemctl --user daemon-reload
 
-echo "Tudo pronto! Atalhos configurados e ativos."
+echo "Habilitando serviços para iniciar com a sessão..."
+systemctl --user enable xcape.service sxhkd.service
+
+systemctl --user stop xcape.service sxhkd.service 2>/dev/null || true
+pkill -x sxhkd 2>/dev/null || true
+
+echo "Iniciando serviços..."
+systemctl --user start xcape.service
+systemctl --user start sxhkd.service
+
+systemctl --user status xcape.service --no-pager -l
+systemctl --user status sxhkd.service --no-pager -l

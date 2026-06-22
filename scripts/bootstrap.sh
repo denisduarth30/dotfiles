@@ -51,6 +51,7 @@ install_apt() {
         papirus-icon-theme
         zram-tools
         sxhkd
+        xcape
     )
 
     for PKG in "${PKGS[@]}"; do
