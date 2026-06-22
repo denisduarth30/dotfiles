@@ -12,3 +12,6 @@ super + r
 
 super + a
     fish /home/denis/.config/fish/functions/rofi/rofi-theme.fish ani-cli
+
+ctrl + Escape
+    kitty --single-instance
