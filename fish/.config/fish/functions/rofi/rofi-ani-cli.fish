@@ -25,7 +25,7 @@ set COMMANDS \
     "history"
 
 set FUNCS_COUNT (count $NAMES)
-
+set DEFAULT_TERM "kitty"
 if test (count $argv) -eq 0
     printf "\x00prompt\x1f\n"
     printf "\x00no-custom\x1ftrue\n"
@@ -47,20 +47,20 @@ if test "$argv[1]" = "--run"
             or exit 0
             test -n "$query"; or exit 0
             set q (string escape -- $query)
-            alacritty -e fish -c "ani-cli $q; echo; read -P 'Pressione Enter para fechar...'" &
+            $DEFAULT_TERM -e fish -c "ani-cli $q; echo; read -P 'Pressione Enter para fechar...'" &
             disown
         case download
             set query (rofi -dmenu -i -p "󰇚" $theme_arg)
             or exit 0
             test -n "$query"; or exit 0
             set q (string escape -- $query)
-            alacritty -e fish -c "ani-cli -d $q; echo; read -P 'Pressione Enter para fechar...'" &
+            $DEFAULT_TERM -e fish -c "ani-cli -d $q; echo; read -P 'Pressione Enter para fechar...'" &
             disown
         case continue
-            alacritty -e fish -c "ani-cli -c; echo; read -P 'Pressione Enter para fechar...'" &
+            $DEFAULT_TERM -e fish -c "ani-cli -c; echo; read -P 'Pressione Enter para fechar...'" &
             disown
         case history
-            alacritty -e fish -c "ani-cli -H; echo; read -P 'Pressione Enter para fechar...'" &
+            $DEFAULT_TERM -e fish -c "ani-cli -H; echo; read -P 'Pressione Enter para fechar...'" &
             disown
     end
     exit 0

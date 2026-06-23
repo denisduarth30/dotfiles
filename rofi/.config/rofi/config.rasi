@@ -12,5 +12,5 @@ configuration {
     drun-display-format: "{icon} {name}";
     web-display-format: "{name}";
     disable-history: false;
-    terminal: "alacritty";
+    terminal: "kitty";
 }

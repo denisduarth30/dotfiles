@@ -25,6 +25,7 @@ set ARG_PROMPTS \
     "URL da playlist" \
 
 set FUNCS_COUNT (count $NAMES)
+set DEFAULT_TERM "kitty"
 
 if test (count $argv) -eq 0
     printf "\x00prompt\x1f\n"
@@ -56,7 +57,7 @@ if test "$argv[1]" = "--run"
         or exit
     end
 
-    alacritty -e fish -c "source ~/.config/fish/config.fish; $cmd \"$arg\"; echo; read -P 'Pressione Enter para fechar...'" &
+    $DEFAULT_TERM -e fish -c "source ~/.config/fish/config.fish; $cmd \"$arg\"; echo; read -P 'Pressione Enter para fechar...'" &
     disown
     exit 0
 end
@@ -73,7 +74,7 @@ for i in (seq 1 $FUNCS_COUNT)
 end
 
 if test -n "$selected"
-    alacritty -e fish -c "source ~/.config/fish/config.fish; $selected; echo; read -P 'Pressione Enter para fechar...'" </dev/null >/dev/null 2>&1 &
+    $DEFAULT_TERM -e fish -c "source ~/.config/fish/config.fish; $selected; echo; read -P 'Pressione Enter para fechar...'" </dev/null >/dev/null 2>&1 &
     disown
     exit 0
 end
