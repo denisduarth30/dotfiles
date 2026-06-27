@@ -50,8 +50,8 @@ install_apt() {
         papirus-folders
         papirus-icon-theme
         zram-tools
+        zram-config
         sxhkd
-        xcape
     )
 
     for PKG in "${PKGS[@]}"; do
@@ -82,7 +82,6 @@ install_dotfiles() {
 
     echo "Instalando scripts..."
     sudo cp -i "$DOTFILES_DIR/utils/yt-dlp" "/usr/local/bin/yt-dlp"
-    sudo chmod +x "/usr/local/bin/yt-dlp"
 
     echo "Removendo alvos existentes..."
     local targets=(
@@ -109,6 +108,11 @@ install_dotfiles() {
 
     echo "Atualizando cache de fontes..."
     fc-cache -fv
+
+    echo "Copiando rofi-functions para /usr/local/bin..."
+    sudo cp -i "$DOTFILES_DIR/fish/.config/fish/functions/rofi/*" -r "/usr/local/bin/"
+
+    sudo chmod +x "/usr/local/bin/*"
 }
 
 set_default_shell() {
