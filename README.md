@@ -1,10 +1,12 @@
-# Dotfiles — Denis
+# **Dotfiles — Denis**
 
-Configuração pessoal para Linux (Debian/Ubuntu-based).
+Configuração pessoal para Linux Mint (Ubuntu-based).
+  - OBS: Preferências e configurações personalizadas voltadas para o Linux Mint por conta do uso de configurações gráficas do sistema usando gsettings. Ver mais em `dotfiles/scripts/appearance.sh`.
+  - Caso você queira personalizar as configurações do sistema, edite o arquivo `dotfiles/scripts/appearance.sh`. Use configurações específicas da distro que está usando (**Ubuntu** ou **Debian**) para personalizar o sistema.
 
 ## 1. Pré-requisito
 
-**git** deve estar instalado:
+`git` deve estar instalado:
 
     sudo apt update && sudo apt install git
 
@@ -42,8 +44,10 @@ Configuração pessoal para Linux (Debian/Ubuntu-based).
 ## Funcionalidades
 
 ### 🎵 Download de músicas do YouTube
-Download de músicas e playlists em mp3 via `yt-dlp`.
-> `dotfiles/.config/fish/functions/dwd_mp3_audio.fish`
+Download de músicas e playlists em mp3 via `yt-dlp`. Possível utilizar o rofi para buscar e selecionar músicas. Ver mais em `dotfiles/.config/fish/functions/rofi/rofi-run.fish`. Funções: `dwd_mp3_audios`, `dwd_mp3_playlists`, `dwd_mp4_videos`.
+ - `dotfiles/.config/fish/functions/dwd_mp3_audios.fish`
+ - `dotfiles/.config/fish/functions/dwd_mp3_playlists.fish`
+ - `dotfiles/.config/fish/functions/dwd_mp4_videos.fish`
 
 ### 🎮 Conversão de ISOs para CHD (PS1/PS2)
 Converte ISOs para o formato CHD usando `mame-tools`.
@@ -56,41 +60,4 @@ Atalhos para apt, limpeza de cache, processos e mais.
 
 ### 📺 Animes via terminal
 Assistir animes pelo terminal com `ani-cli`.
-
-## 4. Dependências e utilização do `rofi-search.fish` e `rofi-theme.fish`
-As dependências para o melhor uso do `rofi-search.fish` e `rofi-theme.fish` são:
-  - Fontes: CommitMono Nerd Font (necessária para ícones e utilizada nos temas em `.config/rofi/themes/dark-theme.rasi` e `light-theme.rasi`)
-  - Conforme surgir a necessidade de aplicar a busca para novos sites, editar o arquivo `rofi-search.fish` nas primeiras linhas.
-    - O próprio arquivo `rofi-search.fish` já lida com a busca em guias anônimas
-    - Necessário adicionar novos nomes, ícones, URLs e bangs nas variáveis `NAMES`, `ICONS`, `URLS` e `BANGS` no arquivo `rofi-search.fish`
-    - Alguns já prontos são:
-      - Google
-      - DuckDuckGo
-      - Youtube
-      - Wikipedia
-      - ...
-
-      ```
-        set NAMES \
-          "Google" "YouTube" "X" "Google Images" "DuckDuckGo" \
-          "GitHub" "GitLab" "Google Translate" "Wikipedia" \
-          "Facebook Marketplace"
-
-        set ICONS "" "" "" "󰋩" "󰇥" "" "" "󰊿" "󰖬" ""
-
-        set URLS \
-            "https://www.google.com/search?q=" \
-            "https://www.youtube.com/results?search_query=" \
-            "https://twitter.com/search?q=" \
-            "https://www.google.com/search?hl=en&tbm=isch&q=" \
-            "https://duckduckgo.com/?q=" \
-            "https://github.com/search?q=" \
-            "https://gitlab.com/search?search=" \
-            "https://translate.google.com/?sl=auto&tl=pt&text=" \
-            "https://pt.wikipedia.org/w/index.php?search=" \
-            "https://www.facebook.com/marketplace/108568625834990/search/?query="
-
-        set BANGS "!g" "!yt" "!x" "!img" "!ddg" "!gh" "!gl" "!tr" "!wp" "!fb"
-      ```
-
-> Todas sobre a configuração do rofi, olhar em `dotfiles/rofi/.config/rofi` e `dotfiles/fish/.config/fish/functions/rofi-search.fish e rofi-theme.fish`
+- Possível utilizar o rofi para buscar e selecionar animes. Ver mais em `dotfiles/.config/fish/functions/rofi/rofi-ani-cli.fish`
