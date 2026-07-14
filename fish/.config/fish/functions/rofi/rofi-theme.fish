@@ -24,13 +24,15 @@ set -l dark_theme "$HOME/.config/rofi/themes/dark-theme.rasi"
 set -l light_theme "$HOME/.config/rofi/themes/light-theme.rasi"
 set -l mint_dark "$HOME/.config/rofi/themes/mint-dark.rasi"
 
-if string match -qr "firefox|chrome|brave|code|spotify|zed|zed-editor|dev.zed.zed|alacritty" "$app_name"
+if string match -qr "firefox|chrome|brave|code|spotify|zed|zed-editor|dev.zed.zed|alacritty|kitty" "$app_name"
     set theme_selected $dark_theme
 else if string match -qr "nemo|nautilus" "$app_name"
     set theme_selected $mint_dark
 else
     set theme_selected $light_theme
 end
+
+echo -n $theme_selected > /tmp/rofi-current-theme
 
 set -l mode combi
 if contains -- "web" $argv
@@ -39,6 +41,8 @@ else if contains -- "run" $argv
     set mode run
 else if contains -- "ani-cli" $argv
     set mode ani-cli
+else if contains -- "powermenu" $argv
+    set mode powermenu
 end
 
 if test "$mode" = web
@@ -501,34 +505,40 @@ else
 end
 
 set index (random 1 (count $phrases))
-set theme_tmp /tmp/rofi-theme-tmp.rasi
-
-sed "s/placeholder: \".*\"/placeholder: \"$phrases[$index]\"/" $theme_selected > $theme_tmp
+set frase_escolhida $phrases[$index]
 
 set -x ROFI_PRIVATE_SEARCH false
 if contains -- "-p" $argv
     set -x ROFI_PRIVATE_SEARCH true
 end
 
+set -l rasi_override "entry { placeholder: \"$frase_escolhida\"; }"
+
 if test "$mode" = web
     rofi -show web \
-         -combi-modi "web:$HOME/.config/fish/functions/rofi/rofi-search.fish" \
-         -theme $theme_tmp \
-         -theme-str 'element-icon { enabled: false; } element { spacing: 0px; }'
+         -modi "web:$HOME/.config/fish/functions/rofi/rofi-web.fish" \
+         -theme $theme_selected \
+         -theme-str "$rasi_override element-icon { enabled: false; } element { spacing: 0px; } listview { require-input: false; }"
 else if test "$mode" = run
     rofi -show run \
         -modi "run:$HOME/.config/fish/functions/rofi/rofi-run.fish" \
-        -theme $theme_tmp \
-        -theme-str 'element-icon { enabled: false; } element { spacing: 0px; }'
+        -theme $theme_selected \
+        -theme-str "$rasi_override element-icon { enabled: false; } element { spacing: 0px; } listview { require-input: false; }"
 else if test "$mode" = ani-cli
     rofi -show ani-cli \
         -modi "ani-cli:$HOME/.config/fish/functions/rofi/rofi-ani-cli.fish" \
-        -theme $theme_tmp \
-        -theme-str 'element-icon { enabled: false; } element { spacing: 0px; }'
+        -theme $theme_selected \
+        -theme-str "$rasi_override element-icon { enabled: false; } element { spacing: 0px; } listview { require-input: false; }"
+else if test "$mode" = powermenu
+    rofi -show powermenu \
+        -modi "powermenu:$HOME/.config/fish/functions/rofi/rofi-powermenu.fish" \
+        -theme $theme_selected \
+        -theme-str "$rasi_override element-icon { enabled: false; } element { spacing: 0px; } listview { require-input: false; }"
 else
     rofi -show combi \
          -combi-modi "drun" \
-         -theme $theme_tmp \
+         -theme $theme_selected \
          -combi-hide-mode-prefix \
-         -no-custom
+         -no-custom \
+         -theme-str "$rasi_override"
 end

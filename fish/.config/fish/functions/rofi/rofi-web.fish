@@ -2,7 +2,7 @@
 
 set DMBROWSER "firefox"
 set DEFAULT_URL "https://duckduckgo.com/?q="
-set STATE_FILE /tmp/rofi-search-state
+set STATE_FILE /tmp/rofi-fish-search-state
 
 set NAMES \
     "Google" "YouTube" "X" "Google Images" "DuckDuckGo" \
@@ -34,8 +34,11 @@ set BANGS "!g" "!yt" "!x" "!img" "!ddg" "!gh" "!gl" "!tr" "!wp" "!fb" "!am" "!pt
 set LISTS_COUNT (count $NAMES)
 
 set theme_arg
-if test -f /tmp/rofi-theme-tmp.rasi
-    set theme_arg -theme /tmp/rofi-theme-tmp.rasi
+if test -f /tmp/rofi-current-theme
+    set -l saved_theme (cat /tmp/rofi-current-theme)
+    if test -n "$saved_theme" -a -f "$saved_theme"
+        set theme_arg -theme "$saved_theme"
+    end
 end
 
 function launch -a url query private

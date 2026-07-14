@@ -1,9 +1,12 @@
 #!/usr/bin/fish
 
-set STATE_FILE /tmp/rofi-ani-cli-state
+set STATE_FILE /tmp/rofi-fish-ani-cli-state
 set theme_arg
-if test -f /tmp/rofi-theme-tmp.rasi
-    set theme_arg -theme /tmp/rofi-theme-tmp.rasi
+if test -f /tmp/rofi-current-theme
+    set -l saved_theme (cat /tmp/rofi-current-theme)
+    if test -n "$saved_theme" -a -f "$saved_theme"
+        set theme_arg -theme "$saved_theme"
+    end
 end
 
 set NAMES \
