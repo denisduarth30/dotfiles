@@ -18,7 +18,7 @@ NoDisplay=false
 Hidden=false
 Name[pt_BR]=sxhkd
 Comment[pt_BR]=Ativa o sxhkd
-X-GNOME-Autostart-Delay=5
+X-GNOME-Autostart-Delay=2
 EOF
 
 echo "🔄 Iniciando os serviços em segundo plano..."
