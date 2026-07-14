@@ -1,101 +1,16 @@
 /* /home/denis/dotfiles/rofi/.config/rofi/themes/light-theme.rasi */
 
 * {
-    font:   "CommitMono Nerd Font 14";
-    bg0:     #ffffff;
-    bg1:     #d0d0d0;
-    fg0:     #555555;
-    fg-dim:  #a0a0a0;
+    bg0:               #fefefe;
+    bg1:               #e0e0e0;
+    fg0:               #555555;
+    fg-dim:            #a0a0a0;
     placeholder-color: #b0b0b0;
-    border-color:     transparent;
-    accent-color:     #555555;
-    urgent-color:     #ffffff;
-    background-color:   transparent;
-    text-color:         @fg0;
-    margin:     0;
-    padding:    0;
-    spacing:    0;
-    radius: 30px;
+    border-color:      transparent;
+    accent-color:      #555555;
+    urgent-color:      #ffffff;
+    entry-fg:          inherit;
+    selected-fg:       #000000;
 }
-window {
-    location:   center;
-    width:      500;
-    background-color:   @bg0;
-    border-radius:      @radius;
-}
-inputbar {
-    spacing:    20px;
-    padding:    20px;
-    background-color:   @bg0;
-    border-radius:      @radius;
-}
-prompt, entry, element-icon, element-text {
-    vertical-align: 0.5;
-}
-prompt {
-    text-color: @placeholder-color;
-    enabled: true;
-}
-textbox {
-    padding:            5px;
-    background-color:   @bg1;
-}
-listview {
-    fixed-height: false;
-    dynamic: true;
-    scrollbar: true;
-    spacing: -2px;
-    padding: 7px 5px 10px 10px;
-    lines: 6;
-}
-entry {
-    text-color: inherit;
-    font:   inherit;
-    placeholder-color   : @placeholder-color;
-    placeholder: "teste fixo";
-}
-element {
-    padding:    7px 15px 7px 15px;
-    spacing:    5px;
-}
-element normal normal {
-    text-color: @fg-dim;
-}
-element normal urgent {
-    text-color: @urgent-color;
-}
-element normal active {
-    text-color: @accent-color;
-}
-element alternate normal {
-    text-color: @fg-dim;
-}
-element alternate active {
-    text-color: @accent-color;
-}
-element selected {
-    text-color: #000000;
-}
-element selected normal, element selected active {
-    background-color:   @bg1;
-    border-radius:      @radius;
-    text-color:         #000000;
-}
-element selected urgent {
-    background-color:   @urgent-color;
-}
-element-icon {
-    size:           1.4em;
-    vertical-align: 0.0;
-    horizontal-align:   0.0;
-}
-element-text {
-    font:       "CommitMono Nerd Font 12";
-    text-color: inherit;
-    highlight:  bold;
-    vertical-align:     0.5;
-}
-element-text selected {
-    font:               "CommitMono Nerd Font Bold 12";
-    text-color:         inherit;
-}
+
+@import "base-layout.rasi"

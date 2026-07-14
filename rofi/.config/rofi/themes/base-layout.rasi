@@ -1,0 +1,108 @@
+/* base-layout.rasi */
+
+* {
+    window-width:       500px;
+    font:               "CommitMono Nerd Font 15";
+    background-color:   transparent;
+    text-color:         @fg0;
+    margin:             0;
+    padding:            0;
+    spacing:            0;
+    radius:             15px;
+    element-radius:     10px;
+    element-spacing:    2px;
+}
+
+window {
+    location:           center;
+    height:             inherit;
+    width:              @window-width;
+    background-color:   @bg0;
+    border-radius:      @radius;
+    border-color:       @border-color;
+}
+
+inputbar {
+    spacing:            20px;
+    padding:            20px;
+    background-color:   @bg0;
+    border-radius:      @radius;
+}
+
+prompt, entry, element-icon, element-text {
+    vertical-align:     0.5;
+}
+
+prompt {
+    text-color:         @placeholder-color;
+    enabled:            true;
+}
+
+textbox {
+    padding:            5px;
+    background-color:   @bg1;
+}
+
+listview {
+    require-input:                  true;
+    fixed-height:                   false;
+    fixed-columns:                  true;
+    enabled:                        true;
+    columns:                        1;
+    lines:                          8;
+    cycle:                          true;
+    dynamic:                        true;
+    scrollbar:                      false;
+    layout:                         vertical;
+    spacing:                       -2px;
+    padding:                        0px 7px 7px 7px;
+    border-radius:                  @radius;
+}
+
+entry {
+    text-color:         @entry-fg;
+    font:               inherit;
+    placeholder-color:  @placeholder-color;
+    placeholder:        "";
+    cursor: text;
+    hide-cursor-on-empty: true;
+}
+
+element {
+    padding:            7px 15px 7px 15px;
+    spacing:            @element-spacing;
+}
+
+element normal normal     { text-color: @fg-dim; }
+element normal urgent     { text-color: @urgent-color; }
+element normal active     { text-color: @accent-color; }
+element alternate normal  { text-color: @fg-dim; }
+element alternate active  { text-color: @accent-color; }
+element selected          { text-color: @selected-fg; }
+
+element selected normal, element selected active {
+    background-color:   @bg1;
+    border-radius:      @element-radius;
+    text-color:         @selected-fg;
+}
+
+element selected urgent { background-color: @urgent-color; }
+
+element-icon {
+    size:               1em;
+    vertical-align:     0.5;
+    horizontal-align:   0.0;
+}
+
+element-text {
+    font:               "CommitMono Nerd Font 12";
+    text-color:         inherit;
+    highlight:          bold;
+    vertical-align:     0.5;
+    horizontal-align:   0.0;
+}
+
+element-text selected {
+    font:               "CommitMono Nerd Font Bold 12";
+    text-color:         inherit;
+}
