@@ -1,16 +1,17 @@
 configuration {
     font: "CommitMono Nerd Font 14";
-    modi: "drun,web:rofi-search.fish, run:rofi-run.fish, ani-cli:rofi-ani-cli.fish";
+    modi: "drun,web:rofi-web.fish, run:rofi-run.fish, ani-cli:rofi-ani-cli.fish, powermenu:rofi-powermenu.fish";
     display-drun: "";
     display-window: "🪟​";
     display-filebrowser: "🗂️​";
     display-web: "󰖟";
     display-run: "";
-    display-combi: "";
+    display-combi: "󰣭";
     display-ani-cli: "󰋖";
     show-icons: true;
     drun-display-format: "{icon} {name}";
     web-display-format: "{name}";
     disable-history: false;
     terminal: "kitty";
+    matching: "normal";
 }
