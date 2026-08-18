@@ -17,4 +17,4 @@ super + q
     fish /home/denis/.config/fish/functions/rofi/rofi-theme.fish powermenu
 
 ctrl + Escape
-    kitty --single-instance
+    alacritty
