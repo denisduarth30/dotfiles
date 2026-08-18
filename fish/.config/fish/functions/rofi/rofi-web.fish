@@ -5,16 +5,17 @@ set DEFAULT_URL "https://duckduckgo.com/?q="
 set STATE_FILE /tmp/rofi-fish-search-state
 
 set NAMES \
-    "Google" "YouTube" "X" "Google Images" "DuckDuckGo" \
+    "Google" "YouTube" "YouTube Music" "X" "Google Images" "DuckDuckGo" \
     "GitHub" "GitLab" "Google Translate" "Wikipedia" \
     "Facebook Marketplace" "Amazon" "Pinterest" "Steam" "ProtonDB" \
-    "Reddit" "Anna's Archive"
+    "Reddit" "Anna's Archive" "SteamDB"
 
-set ICONS "" "" "" "󰋩" "󰇥" "" "" "󰊿" "󰖬" "" "" "" "" "" "" ""
+set ICONS "" "" "󰎆" "" "󰋩" "󰇥" "" "" "󰊿" "󰖬" "" "" "" "" "" "" "" ""
 
 set URLS \
     "https://www.google.com/search?q=" \
     "https://www.youtube.com/results?search_query=" \
+    "https://music.youtube.com/search?q=" \
     "https://twitter.com/search?q=" \
     "https://www.google.com/search?hl=en&tbm=isch&q=" \
     "https://duckduckgo.com/?q=" \
@@ -28,14 +29,20 @@ set URLS \
     "https://store.steampowered.com/search?term=" \
     "https://www.protondb.com/search?q=" \
     "https://www.reddit.com/search/?q=" \
-    "https://annas-archive.pk/search?q="
+    "https://annas-archive.pk/search?q=" \
+    "https://steamdb.info/search/?a=all&q="
 
-set BANGS "!g" "!yt" "!x" "!img" "!ddg" "!gh" "!gl" "!tr" "!wp" "!fb" "!am" "!ptr" "!st" "!ptdb" "!rd" "!annas"
 set LISTS_COUNT (count $NAMES)
+
+set is_private false
+if test "$ROFI_PRIVATE_SEARCH" = "true"
+    set is_private true
+end
 
 set theme_arg
 if test -f /tmp/rofi-current-theme
-    set -l saved_theme (cat /tmp/rofi-current-theme)
+    set -l saved_theme
+    read -l saved_theme < /tmp/rofi-current-theme
     if test -n "$saved_theme" -a -f "$saved_theme"
         set theme_arg -theme "$saved_theme"
     end
@@ -54,7 +61,7 @@ if test (count $argv) -eq 0
     set prompt_msg ""
     set suffix ""
 
-    if test "$ROFI_PRIVATE_SEARCH" = "true"
+    if test "$is_private" = true
         set prompt_msg "󰈉"
         set suffix " (Privado)"
     end
@@ -62,7 +69,7 @@ if test (count $argv) -eq 0
     printf "\x00prompt\x1f%s\n" "$prompt_msg"
     printf "\x00no-custom\x1ftrue\n"
     for i in (seq 1 $LISTS_COUNT)
-        printf "%s  %s%s\x00info\x1f%s\n" $ICONS[$i] $NAMES[$i] $suffix $URLS[$i]
+        printf "%s  %s%s\x00info\x1f%s\n" $ICONS[$i] $NAMES[$i] $suffix $i
     end
     exit 0
 end
@@ -70,25 +77,14 @@ end
 if test "$argv[1]" = "--query"
     sleep 0.2
     test -f $STATE_FILE; or exit 0
-    set lines (string split \n (cat $STATE_FILE))
+    set -l idx
+    read -l idx < $STATE_FILE
     rm -f $STATE_FILE
 
-    set url $lines[1]
-    set name $lines[2]
-    set prompt_text $name
-
-    for i in (seq 1 $LISTS_COUNT)
-        if test "$NAMES[$i]" = "$name"
-            if test -n "$ICONS[$i]"
-                set prompt_text "$ICONS[$i]"
-            end
-            break
-        end
-    end
-
-    set is_private false
-    if test "$ROFI_PRIVATE_SEARCH" = "true"
-        set is_private true
+    set url $URLS[$idx]
+    set prompt_text $NAMES[$idx]
+    if test -n "$ICONS[$idx]"
+        set prompt_text $ICONS[$idx]
     end
 
     set query (rofi -dmenu -i -p "$prompt_text " $theme_arg)
@@ -98,68 +94,12 @@ if test "$argv[1]" = "--query"
     exit 0
 end
 
-set selected (string trim "$argv[1]")
-
-set suffix ""
-if test "$ROFI_PRIVATE_SEARCH" = "true"
-    set suffix " (Privado)"
+if test -n "$ROFI_INFO"
+    printf "%s" "$ROFI_INFO" > $STATE_FILE
+    set script_path (realpath (status filename))
+    fish $script_path --query </dev/null >/dev/null 2>&1 &
+    disown
+    exit 0
 end
 
-for i in (seq 1 $LISTS_COUNT)
-    set expected (string trim "$ICONS[$i]  $NAMES[$i]$suffix")
-
-    if test "$selected" = "$expected"
-        printf "%s\n%s" $URLS[$i] $NAMES[$i] > $STATE_FILE
-        set script_path (realpath (status filename))
-        fish $script_path --query </dev/null >/dev/null 2>&1 &
-        disown
-        exit 0
-    end
-end
-
-set input $argv[1]
-
-if string match -q '* !*' $input
-    set parts (string split ' ' $input)
-    set bang $parts[-1]
-    set input_text (string join ' ' $parts[1..-2])
-    set input "$bang $input_text"
-end
-
-if string match -q '!*' $input
-    set parts (string split ' ' $input)
-    set bang  $parts[1]
-    set query (string join ' ' $parts[2..])
-
-    set private false
-    if test "$ROFI_PRIVATE_SEARCH" = "true"
-        set private true
-    end
-
-    if string match -q '*-p' $bang
-        set private true
-        set bang (string replace -r -- '-p$' '' $bang)
-    end
-
-    set url $DEFAULT_URL
-    for i in (seq 1 $LISTS_COUNT)
-        if test "$bang" = "$BANGS[$i]"
-            set url $URLS[$i]
-            break
-        end
-    end
-
-    if test -n "$query"
-        launch "$url" "$query" "$private"
-    else
-        set query (rofi -dmenu -i -p "Buscando:" $theme_arg)
-        or exit
-        launch "$url" "$query" "$private"
-    end
-else
-    set private false
-    if test "$ROFI_PRIVATE_SEARCH" = "true"
-        set private true
-    end
-    launch "$DEFAULT_URL" "$input" "$private"
-end
+launch "$DEFAULT_URL" "$argv[1]" "$is_private"
