@@ -15,7 +15,8 @@ set NAMES \
     "Suspender" \
     "Hibernar" \
     "Sair" \
-    "Ir para a BIOS"
+    "Ir para a BIOS" \
+    "Bloquear Tela"
 
 set ICONS \
     "⏻" \
@@ -23,7 +24,8 @@ set ICONS \
     "󰤄" \
     "󰒲" \
     "󰍃" \
-    ""
+    "" \
+    "󰌾"
 
 set COMMANDS \
     "poweroff" \
@@ -31,7 +33,8 @@ set COMMANDS \
     "suspend" \
     "hibernate" \
     "logout" \
-    "bios"
+    "bios" \
+    "lock"
 
 set FUNCS_COUNT (count $NAMES)
 
@@ -61,6 +64,8 @@ if test "$argv[1]" = "--run"
             systemctl hibernate
         case logout
             loginctl terminate-user $USER
+        case lock
+            cinnamon-screensaver-command --lock
         case bios
             systemctl reboot --firmware-setup
     end
