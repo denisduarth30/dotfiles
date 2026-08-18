@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 DOTFILES_DIR="$HOME/dotfiles"
-WALLPAPER="$DOTFILES_DIR/assets/interstellar.png"
+WALLPAPER="$DOTFILES_DIR/assets/interstellar.jpg"
 
 if [[ ! -f "$WALLPAPER" ]]; then
     echo "Wallpaper não encontrado: $WALLPAPER"
@@ -13,8 +13,7 @@ gsettings set org.cinnamon.desktop.background picture-uri "file://$WALLPAPER"
 gsettings set org.cinnamon.desktop.background picture-options 'scaled'
 
 echo "Definindo tema para mouse"
-gsettings set org.cinnamon.desktop.interface cursor-theme 'Adwaita'
-gsettings set org.cinnamon.desktop.interface cursor-size 16
+gsettings set org.cinnamon.desktop.interface cursor-theme 'Bibata-Modern-Classic'
 
 echo "Definindo tema para Mint-Y-Dark-Grey"
 gsettings set org.cinnamon.desktop.interface gtk-theme 'Mint-Y-Dark-Grey'
