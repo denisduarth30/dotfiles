@@ -24,7 +24,7 @@ set -l dark_theme "$HOME/.config/rofi/themes/dark-theme.rasi"
 set -l light_theme "$HOME/.config/rofi/themes/light-theme.rasi"
 set -l mint_dark "$HOME/.config/rofi/themes/mint-dark.rasi"
 
-if string match -qr "firefox|chrome|brave|code|spotify|zed|zed-editor|dev.zed.zed|alacritty|kitty" "$app_name"
+if string match -qr "firefox|chrome|brave|code|spotify|zed|zed-editor|dev.zed.zed|alacritty|kitty|zen|zen-browser" "$app_name"
     set theme_selected $dark_theme
 else if string match -qr "nemo|nautilus" "$app_name"
     set theme_selected $mint_dark
