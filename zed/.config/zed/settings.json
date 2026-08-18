@@ -7,6 +7,8 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "proxy": "",
+  "disable_ai": false,
   "terminal": {
     "blinking": "on",
     "minimum_contrast": 45.0,
@@ -32,9 +34,5 @@
   },
   "ui_font_size": 14.0,
   "buffer_font_size": 13.0,
-  "theme": {
-    "mode": "dark",
-    "light": "One Light",
-    "dark": "Dark+ Contrast",
-  },
+  "theme": "Dark+ Contrast",
 }
