@@ -1,16 +1,16 @@
 /* base-layout.rasi */
 
 * {
-    window-width:       500px;
+    window-width:       450px;
     font:               "CommitMono Nerd Font 15";
     background-color:   transparent;
     text-color:         @fg0;
     margin:             0;
     padding:            0;
     spacing:            0;
-    radius:             15px;
-    element-radius:     10px;
-    element-spacing:    2px;
+    radius:             10px;
+    element-radius:     7px;
+    element-spacing:    3px;
 }
 
 window {
@@ -20,11 +20,12 @@ window {
     background-color:   @bg0;
     border-radius:      @radius;
     border-color:       @border-color;
+    border:             1px;
 }
 
 inputbar {
-    spacing:            20px;
-    padding:            20px;
+    spacing:            15px 15px 0px 20px;
+    padding:            15px;
     background-color:   @bg0;
     border-radius:      @radius;
 }
@@ -32,7 +33,6 @@ inputbar {
 prompt, entry, element-icon, element-text {
     vertical-align:     0.5;
 }
-
 prompt {
     text-color:         @placeholder-color;
     enabled:            true;
@@ -41,6 +41,8 @@ prompt {
 textbox {
     padding:            5px;
     background-color:   @bg1;
+    cursor-color:       #000000;
+    cursor-width:       1px;
 }
 
 listview {
@@ -49,12 +51,12 @@ listview {
     fixed-columns:                  true;
     enabled:                        true;
     columns:                        1;
-    lines:                          8;
+    lines:                          5;
     cycle:                          true;
     dynamic:                        true;
     scrollbar:                      false;
     layout:                         vertical;
-    spacing:                       -2px;
+    spacing:                        0px;
     padding:                        0px 7px 7px 7px;
     border-radius:                  @radius;
 }
@@ -65,7 +67,6 @@ entry {
     placeholder-color:  @placeholder-color;
     placeholder:        "";
     cursor: text;
-    hide-cursor-on-empty: true;
 }
 
 element {
@@ -86,6 +87,11 @@ element selected normal, element selected active {
     text-color:         @selected-fg;
 }
 
+element selected normal {
+    border:             1px;
+    border-color:       @selected-border-color;
+}
+
 element selected urgent { background-color: @urgent-color; }
 
 element-icon {
@@ -95,7 +101,7 @@ element-icon {
 }
 
 element-text {
-    font:               "CommitMono Nerd Font 12";
+    font:               "CommitMono Nerd Font 12.25";
     text-color:         inherit;
     highlight:          bold;
     vertical-align:     0.5;
@@ -103,6 +109,6 @@ element-text {
 }
 
 element-text selected {
-    font:               "CommitMono Nerd Font Bold 12";
+    font:               "CommitMono Nerd Font Bold 12.25";
     text-color:         inherit;
 }

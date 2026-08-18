@@ -6,11 +6,12 @@
     fg0:               #e0e0e0;
     fg-dim:            #5E5E60;
     placeholder-color: #454549;
-    border-color:      transparent;
+    border-color:      #454549;
     accent-color:      #A9A9B1;
     urgent-color:      #111111;
     entry-fg:          #ffffff;
     selected-fg:       #ffffff;
+    selected-border-color: #5E5E60;
 }
 
 @import "base-layout.rasi"
