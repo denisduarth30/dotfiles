@@ -1,0 +1,17 @@
+/* /home/denis/dotfiles/rofi/.config/rofi/themes/dark-theme.rasi */
+
+* {
+    bg0:               #171717;
+    bg1:               #2a2a2a;
+    fg0:               #e0e0e0;
+    fg-dim:            #555555;
+    placeholder-color: #505050;
+    accent-color:      #ffffff;
+    urgent-color:      #111111;
+    entry-fg:          #ffffff;
+    selected-fg:       #ffffff;
+    border-color:      #2a2a2a;
+    selected-border-color:  #4a4a4a;
+}
+
+@import "base-layout.rasi"

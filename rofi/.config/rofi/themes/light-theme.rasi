@@ -1,0 +1,17 @@
+/* /home/denis/dotfiles/rofi/.config/rofi/themes/light-theme.rasi */
+
+* {
+    bg0:               #fefefe;
+    bg1:               #d5d5d5;
+    fg0:               #555555;
+    fg-dim:            #a0a0a0;
+    placeholder-color: #b0b0b0;
+    accent-color:      #555555;
+    urgent-color:      #ffffff;
+    entry-fg:          inherit;
+    selected-fg:       #000000;
+    border-color:      #cecece;
+    selected-border-color: #aeaeae;
+}
+
+@import "base-layout.rasi"
