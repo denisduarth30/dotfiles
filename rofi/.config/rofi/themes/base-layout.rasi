@@ -1,7 +1,7 @@
 /* base-layout.rasi */
 
 * {
-    window-width:       500px;
+    window-width:       450px;
     font:               "CommitMono Nerd Font 15";
     background-color:   transparent;
     text-color:         @fg0;

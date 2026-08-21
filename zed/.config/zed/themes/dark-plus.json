@@ -7,7 +7,7 @@
       "name": "Dark+ Contrast",
       "appearance": "dark",
       "style": {
-        "border": "#282828",
+        "border": "#454545",
         "border.variant": "#333333",
         "border.focused": "#007ACC",
         "border.selected": "#007ACC",
@@ -15,14 +15,14 @@
         "border.disabled": "#282828",
 
         "elevated_surface.background": "#252526",
-        "surface.background": "#1C1C1C",
-        "background": "#141414",
+        "surface.background": "#252526",
+        "background": "#1E1E1E",
 
         "element.background": "#252526",
         "element.hover": "#2A2D2E",
         "element.active": "#094771",
         "element.selected": "#094771",
-        "element.disabled": "#1C1C1C",
+        "element.disabled": "#1E1E1E",
 
         "drop_target.background": "#1F3D5480",
 
@@ -44,17 +44,17 @@
         "icon.placeholder": "#666666",
         "icon.accent": "#4FC3F7",
 
-        "status_bar.background": "#1a1a1a",
+        "status_bar.background": "#007ACC",
         "title_bar.background": "#1E1E1E",
         "title_bar.inactive_background": "#1E1E1E",
-        "toolbar.background": "#1e1e1e",
-        "tab_bar.background": "#1e1e1e",
-        "tab.inactive_background": "#1e1e1e",
-        "tab.active_background": "#252525",
+        "toolbar.background": "#1E1E1E",
+        "tab_bar.background": "#252526",
+        "tab.inactive_background": "#2D2D2D",
+        "tab.active_background": "#1E1E1E",
 
         "search.match_background": "#613315",
 
-        "panel.background": "#1E1E1E",
+        "panel.background": "#252526",
         "panel.focused_border": "#007ACC",
         "pane.focused_border": "#007ACC",
 
@@ -65,13 +65,13 @@
         "scrollbar.track.border": "#2D2D2D",
 
         "editor.foreground": "#E8E8E8",
-        "editor.background": "#1c1c1c",
+        "editor.background": "#1E1E1E",
         "editor.gutter.background": "#1E1E1E",
         "editor.subheader.background": "#252526",
         "editor.active_line.background": "#2A2A2A",
         "editor.highlighted_line.background": "#2a2a2a",
-        "editor.line_number": "#5A5A5A",
-        "editor.active_line_number": "#C8C8C8",
+        "editor.line_number": "#858585",
+        "editor.active_line_number": "#C6C6C6",
         "editor.invisible": "#3B3B3B",
         "editor.wrap_guide": "#202020",
         "editor.active_wrap_guide": "#2c2c2c",
@@ -122,7 +122,7 @@
         "warning.background": "#2C2200",
         "warning.background.hover": "#3A2D00",
 
-        "terminal.background": "#1c1c1c",
+        "terminal.background": "#1E1E1E",
         "terminal.foreground": "#E8E8E8",
         "terminal.bright_foreground": "#FFFFFF",
         "terminal.dim_foreground": "#909090",
