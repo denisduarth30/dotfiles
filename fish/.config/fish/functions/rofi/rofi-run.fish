@@ -51,6 +51,9 @@ function __run_command
     if string match -q "*.fish" "$cmd"
         fish "$cmd" </dev/null >/dev/null 2>&1 &
         disown
+    else if string match -q "*&" "$cmd"
+        fish -c "source ~/.config/fish/config.fish; $cmd" </dev/null >/dev/null 2>&1
+        disown
     else
         $TERMINAL -e fish -c "source ~/.config/fish/config.fish; $sudo_prefix$cmd; echo; read -P 'Pressione Enter para fechar...'" </dev/null >/dev/null 2>&1 &
         disown
@@ -83,7 +86,11 @@ if test "$argv[1]" = "--run"
     if test -n "$text"
         set arg (rofi -dmenu -i -p "$prompt_text: " $theme_arg)
         or exit
-        set full_cmd "$cmd "$arg""
+        test -n "$arg"; or exit
+
+        set words (string split -n -- ' ' "$arg")
+        set escaped (string escape -- $words)
+        set full_cmd "$cmd "(string join -- ' ' $escaped)
         __run_command "$full_cmd"
     else
         __run_command "$cmd"

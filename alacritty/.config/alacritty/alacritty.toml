@@ -4,7 +4,7 @@ import = ["~/.config/alacritty/themes/dark-theme.toml"]
 size = 11.0
 
 [font.normal]
-family = "CommitMono Nerd Font"
+family = "Hack Nerd Font"
 style = "Regular"
 
 [shell]

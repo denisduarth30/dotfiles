@@ -6,13 +6,14 @@ configuration {
     display-filebrowser: "🗂️​";
     display-web: "󰖟";
     display-run: "";
-    display-combi: "󰣭";
+    display-combi: "";
     display-ani-cli: "";
     show-icons: true;
     drun-display-format: "{icon} {name}";
     web-display-format: "{name}";
     disable-history: false;
     terminal: "alacritty";
-    matching: "normal";
+    matching: "fuzzy";
     sorting-method: "fzf";
+    sort: true;
 }

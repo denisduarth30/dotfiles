@@ -1,4 +1,4 @@
-# ~/.config/fish/functions/dwd_mp3_playlist.fish
+# ~/.config/fish/functions/dwd_mp3_playlists.fish
 
 function dwd_mp3_playlists --description "Baixa múltiplas playlists em MP3"
     if test (count $argv) -eq 0
@@ -26,8 +26,8 @@ function dwd_mp3_playlists --description "Baixa múltiplas playlists em MP3"
             --ignore-errors \
             --embed-metadata \
             --embed-thumbnail \
-            --js-runtime deno \
-            --no-warnings \
+            --js-runtimes deno \
+            --remote-components ejs:github \
             --output "$base_dir/%(playlist_title)s/%(playlist_index)02d - %(title)s.%(ext)s" \
             $url
 
@@ -43,8 +43,8 @@ function dwd_mp3_playlists --description "Baixa múltiplas playlists em MP3"
 
     echo ""
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo "✓ Sucesso: $success_count"
-    echo "✗ Falhas:  $fail_count"
+    echo "🟢 Sucesso: $success_count"
+    echo "🔴 Falhas:  $fail_count"
 
     if test (count $failed_urls) -gt 0
         echo ""

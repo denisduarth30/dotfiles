@@ -1,0 +1,229 @@
+#!/usr/bin/env python3
+"""
+Migra os atalhos do sxhkdrc para os atalhos personalizados nativos do Cinnamon
+(Linux Mint) e desativa os atalhos do sistema que conflitam com eles.
+
+Uso:
+  python3 migrar_atalhos_cinnamon.py              aplica a migração
+  python3 migrar_atalhos_cinnamon.py --simular    mostra o que seria feito, sem alterar nada
+  python3 migrar_atalhos_cinnamon.py --restaurar  desfaz a migração usando o backup
+
+Os valores originais dos atalhos desativados ficam salvos em
+~/.local/share/migrar-atalhos-cinnamon.json, então a operação é reversível.
+"""
+
+import argparse
+import ast
+import json
+import shlex
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+SXHKDRC_PADRAO = Path.home() / ".config/sxhkd/sxhkdrc"
+BACKUP = Path.home() / ".local/share/migrar-atalhos-cinnamon.json"
+
+PREFIXO = "[migrado] "
+SCHEMA_LISTA = "org.cinnamon.desktop.keybindings"
+SCHEMA_CUSTOM = "org.cinnamon.desktop.keybindings.custom-keybinding"
+PATH_CUSTOM = "/org/cinnamon/desktop/keybindings/custom-keybindings/"
+SCHEMAS_ATALHOS = [
+    "org.cinnamon.desktop.keybindings",
+    "org.cinnamon.desktop.keybindings.wm",
+    "org.cinnamon.desktop.keybindings.media-keys",
+]
+MODIFICADORES = {"super": "<Super>", "ctrl": "<Control>", "alt": "<Alt>", "shift": "<Shift>"}
+
+def gsettings(*args):
+    resultado = subprocess.run(["gsettings", *args], capture_output=True, text=True, check=True)
+    return resultado.stdout.strip()
+
+def alvo(schema, path=None):
+    return f"{schema}:{path}" if path else schema
+
+def ler(schema, chave, path=None):
+    bruto = gsettings("get", alvo(schema, path), chave).removeprefix("@as ")
+    try:
+        return ast.literal_eval(bruto)
+    except (ValueError, SyntaxError):
+        return bruto
+
+def gravar(schema, chave, valor, path=None):
+    gsettings("set", alvo(schema, path), chave, json.dumps(valor, ensure_ascii=False))
+
+def ler_sxhkdrc(caminho):
+    atalhos, atual = [], None
+    for linha in Path(caminho).read_text(encoding="utf-8").splitlines():
+        if not linha.strip() or linha.lstrip().startswith("#"):
+            continue
+        if linha[0] in " \t":
+            if atual is not None:
+                atual["comandos"].append(linha.strip())
+        else:
+            atual = {"combo": linha.strip(), "comandos": []}
+            atalhos.append(atual)
+    return [
+        {"combo": a["combo"], "comando": "; ".join(a["comandos"])}
+        for a in atalhos if a["comandos"]
+    ]
+
+def para_accelerador(combo):
+    *mods, tecla = [p.strip() for p in combo.split("+")]
+    prefixo = ""
+    for mod in mods:
+        if mod.lower() not in MODIFICADORES:
+            raise ValueError(f"modificador não suportado em '{combo}': {mod}")
+        prefixo += MODIFICADORES[mod.lower()]
+    if len(tecla) == 1:
+        tecla = tecla.lower()
+    return prefixo + tecla
+
+def preparar_comando(comando):
+    if any(c in comando for c in "&;|<>~$`"):
+        return "sh -c " + shlex.quote(comando)
+    return comando
+
+def eh_nosso(path):
+    try:
+        return str(ler(SCHEMA_CUSTOM, "name", path)).startswith(PREFIXO)
+    except subprocess.CalledProcessError:
+        return False
+
+def atalhos_custom_existentes():
+    """Caminhos dos atalhos personalizados que não foram criados por este script."""
+    caminhos = []
+    for nome in ler(SCHEMA_LISTA, "custom-list"):
+        path = f"{PATH_CUSTOM}{nome}/"
+        if not eh_nosso(path):
+            caminhos.append(path)
+    return caminhos
+
+def mesmo_atalho(valor, accel):
+    valores = valor if isinstance(valor, list) else [valor]
+    return any(isinstance(v, str) and v.lower() == accel.lower() for v in valores)
+
+def encontrar_conflitos(accel):
+    """Lista (schema, chave, path, valor) de cada atalho existente com a mesma combinação."""
+    conflitos = []
+    for schema in SCHEMAS_ATALHOS:
+        for chave in gsettings("list-keys", schema).splitlines():
+            try:
+                valor = ler(schema, chave)
+            except subprocess.CalledProcessError:
+                continue
+            if mesmo_atalho(valor, accel):
+                conflitos.append((schema, chave, None, valor))
+    for path in atalhos_custom_existentes():
+        valor = ler(SCHEMA_CUSTOM, "binding", path)
+        if mesmo_atalho(valor, accel):
+            conflitos.append((SCHEMA_CUSTOM, "binding", path, valor))
+    return conflitos
+
+def desativar(schema, chave, path, valor):
+    vazio = [] if isinstance(valor, list) else ""
+    gravar(schema, chave, vazio, path)
+
+def carregar_backup():
+    if BACKUP.exists():
+        return json.loads(BACKUP.read_text(encoding="utf-8"))
+    return {"originais": [], "custom_list": None}
+
+def salvar_backup(dados):
+    BACKUP.parent.mkdir(parents=True, exist_ok=True)
+    BACKUP.write_text(json.dumps(dados, ensure_ascii=False, indent=2), encoding="utf-8")
+
+def guardar_original(dados, schema, chave, path, valor):
+    ja_salvo = any(
+        r["schema"] == schema and r["chave"] == chave and r["path"] == path
+        for r in dados["originais"]
+    )
+    if not ja_salvo:
+        dados["originais"].append({"schema": schema, "chave": chave, "path": path, "valor": valor})
+
+def remover_atalhos_do_script():
+    restantes = []
+    for nome in ler(SCHEMA_LISTA, "custom-list"):
+        path = f"{PATH_CUSTOM}{nome}/"
+        if eh_nosso(path):
+            gsettings("reset-recursively", alvo(SCHEMA_CUSTOM, path))
+        else:
+            restantes.append(nome)
+    gravar(SCHEMA_LISTA, "custom-list", restantes)
+
+def proximo_nome(nomes):
+    prefixo = "custom"
+    usados = {
+        int(n[len(prefixo):]) for n in nomes
+        if n.startswith(prefixo) and n[len(prefixo):].isdigit()
+    }
+    i = 0
+    while i in usados:
+        i += 1
+    return f"{prefixo}{i}"
+
+def aplicar(atalhos, simular):
+    dados = carregar_backup()
+    if dados["custom_list"] is None:
+        dados["custom_list"] = ler(SCHEMA_LISTA, "custom-list")
+
+    print(f"{len(atalhos)} atalhos encontrados no sxhkdrc.\n")
+    for atalho in atalhos:
+        accel = para_accelerador(atalho["combo"])
+        print(f"{atalho['combo']}  ->  {accel}")
+        for schema, chave, path, valor in encontrar_conflitos(accel):
+            origem = path or schema
+            print(f"    conflito desativado: {origem} / {chave} = {valor}")
+            if not simular:
+                guardar_original(dados, schema, chave, path, valor)
+                desativar(schema, chave, path, valor)
+
+    if simular:
+        print("\nSimulação: nada foi alterado.")
+        return
+
+    salvar_backup(dados)
+    remover_atalhos_do_script()
+    for atalho in atalhos:
+        nomes = ler(SCHEMA_LISTA, "custom-list")
+        nome = proximo_nome(nomes)
+        path = f"{PATH_CUSTOM}{nome}/"
+        gravar(SCHEMA_CUSTOM, "name", PREFIXO + atalho["combo"], path)
+        gravar(SCHEMA_CUSTOM, "command", preparar_comando(atalho["comando"]), path)
+        gravar(SCHEMA_CUSTOM, "binding", [para_accelerador(atalho["combo"])], path)
+        gravar(SCHEMA_LISTA, "custom-list", nomes + [nome])  # pyright: ignore[reportOperatorIssue]
+
+    print("\nAtalhos criados em Configurações do Sistema > Teclado > Atalhos personalizados.")
+    print(f"Backup dos valores originais: {BACKUP}")
+
+def restaurar():
+    if not BACKUP.exists():
+        print("Nenhum backup encontrado; nada a restaurar.")
+        return
+    dados = json.loads(BACKUP.read_text(encoding="utf-8"))
+    remover_atalhos_do_script()
+    if dados["custom_list"] is not None:
+        gravar(SCHEMA_LISTA, "custom-list", dados["custom_list"])
+    for r in dados["originais"]:
+        gravar(r["schema"], r["chave"], r["valor"], r["path"])
+    BACKUP.unlink()
+    print("Atalhos originais restaurados.")
+
+def main():
+    parser = argparse.ArgumentParser(description="Migra atalhos do sxhkd para o Cinnamon.")
+    parser.add_argument("--sxhkdrc", default=str(SXHKDRC_PADRAO), help="caminho do sxhkdrc")
+    parser.add_argument("--simular", action="store_true", help="só mostra o que seria feito")
+    parser.add_argument("--restaurar", action="store_true", help="desfaz a migração")
+    args = parser.parse_args()
+
+    if not shutil.which("gsettings"):
+        sys.exit("gsettings não encontrado. Este script precisa de uma sessão do Cinnamon.")
+
+    if args.restaurar:
+        restaurar()
+        return
+
+    aplicar(ler_sxhkdrc(args.sxhkdrc), args.simular)
+
+if __name__ == "__main__":
+    main()

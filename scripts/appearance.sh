@@ -13,7 +13,7 @@ gsettings set org.cinnamon.desktop.background picture-uri "file://$WALLPAPER"
 gsettings set org.cinnamon.desktop.background picture-options 'scaled'
 
 echo "Definindo tema para mouse"
-gsettings set org.cinnamon.desktop.interface cursor-theme 'Bibata-Modern-Classic'
+gsettings set org.cinnamon.desktop.interface cursor-theme 'Yaru'
 
 echo "Definindo tema para Mint-Y-Dark-Grey"
 gsettings set org.cinnamon.desktop.interface gtk-theme 'Mint-Y-Dark-Grey'

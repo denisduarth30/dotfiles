@@ -1,4 +1,4 @@
-# ~/.config/fish/functions/dwd_mp3_audio.fish
+# ~/.config/fish/functions/dwd_mp3_audios.fish
 
 function dwd_mp3_audios --description "Baixa áudio em MP3 de uma ou mais URLs"
     if test (count $argv) -eq 0
@@ -42,8 +42,8 @@ function dwd_mp3_audios --description "Baixa áudio em MP3 de uma ou mais URLs"
 
     echo ""
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo "✓ Sucesso: $success_count"
-    echo "✗ Falhas:  $fail_count"
+    echo "🟢 Sucesso: $success_count"
+    echo "🔴 Falhas:  $fail_count"
 
     if test (count $failed_urls) -gt 0
         echo ""

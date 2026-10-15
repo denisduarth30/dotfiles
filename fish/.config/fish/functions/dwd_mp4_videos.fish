@@ -1,4 +1,4 @@
-# ~/.config/fish/functions/dwd_mp4_video.fish
+# ~/.config/fish/functions/dwd_mp4_videos.fish
 
 function dwd_mp4_videos --description "Baixa vídeo(s) em MP4 de uma ou mais URLs"
     if test (count $argv) -eq 0
@@ -11,7 +11,6 @@ function dwd_mp4_videos --description "Baixa vídeo(s) em MP4 de uma ou mais URL
     set quality "best"
     set urls
 
-    # Parseia -q como flag opcional
     set i 1
     while test $i -le (count $argv)
         switch $argv[$i]
@@ -77,8 +76,8 @@ function dwd_mp4_videos --description "Baixa vídeo(s) em MP4 de uma ou mais URL
 
     echo ""
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo "✓ Sucesso: $success_count  |  Destino: $base_dir"
-    echo "✗ Falhas:  $fail_count"
+    echo "🟢 Sucesso: $success_count | Destino: $base_dir"
+    echo "🔴 Falhas:  $fail_count"
 
     if test (count $failed_urls) -gt 0
         echo ""

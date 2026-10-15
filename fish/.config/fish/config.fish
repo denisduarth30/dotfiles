@@ -7,3 +7,4 @@ source /usr/share/fish/config.fish
 #end
 
 set -p fish_function_path ~/.config/fish/functions/rofi
+fish_add_path ~/.local/bin
