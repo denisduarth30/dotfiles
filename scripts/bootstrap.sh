@@ -85,6 +85,7 @@ install_apt() {
         zram-tools
         sxhkd
         libglib2.0-bin
+        xdotool
     )
 
     log "Instalando pacotes..."
