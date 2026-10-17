@@ -5,17 +5,23 @@ set DEFAULT_URL "https://duckduckgo.com/?q="
 set STATE_FILE /tmp/rofi-fish-search-state
 
 set NAMES \
-    "Google" "YouTube" "YouTube Music" "X" "Google Images" "DuckDuckGo" \
+    "Google" "YouTube" "YouTube Music" "Spotify" "X" "Google Images" "DuckDuckGo" \
     "GitHub" "GitLab" "Google Translate" "Wikipedia" \
     "Facebook Marketplace" "Amazon" "Pinterest" "Steam" "ProtonDB" \
-    "Reddit" "Anna's Archive" "SteamDB"
+    "Reddit" "Anna's Archive" "SteamDB" \
+    "Stack Overflow" "Hacker News" "Arch Wiki" "IMDb" "MyAnimeList" "Google Scholar"
 
-set ICONS "" "" "󰎆" "" "󰋩" "󰇥" "" "" "󰊿" "󰖬" "" "" "" "" "" "" "" ""
+    set ICONS "" "" "󰎆" "" "" "󰋩" "󰇥" \
+        "" "" "󰊿" "󰖬" \
+        "" "" "" "" "" \
+        "" "" "" \
+        "󰓌" "" "󰣇" "" "" "󰑴"
 
 set URLS \
     "https://www.google.com/search?q=" \
     "https://www.youtube.com/results?search_query=" \
     "https://music.youtube.com/search?q=" \
+    "https://open.spotify.com/search/" \
     "https://twitter.com/search?q=" \
     "https://www.google.com/search?hl=en&tbm=isch&q=" \
     "https://duckduckgo.com/?q=" \
@@ -30,9 +36,19 @@ set URLS \
     "https://www.protondb.com/search?q=" \
     "https://www.reddit.com/search/?q=" \
     "https://annas-archive.pk/search?q=" \
-    "https://steamdb.info/search/?a=all&q="
+    "https://steamdb.info/search/?a=all&q=" \
+    "https://stackoverflow.com/search?q=" \
+    "https://hn.algolia.com/?q=" \
+    "https://wiki.archlinux.org/index.php?search=" \
+    "https://www.imdb.com/find/?q=" \
+    "https://myanimelist.net/search/all?q=" \
+    "https://scholar.google.com/scholar?q="
 
 set LISTS_COUNT (count $NAMES)
+
+if test (count $NAMES) -ne (count $URLS); or test (count $NAMES) -ne (count $ICONS)
+    echo "NAMES, ICONS e URLS têm tamanhos diferentes" >&2
+end
 
 set is_private false
 if test "$ROFI_PRIVATE_SEARCH" = "true"
@@ -49,10 +65,11 @@ if test -f /tmp/rofi-current-theme
 end
 
 function launch -a url query private
+    set -l q (string escape --style=url -- "$query")
     if test "$private" = true
-        $DMBROWSER --private-window "$url$query" &
+        $DMBROWSER --private-window "$url$q" &
     else
-        $DMBROWSER "$url$query" &
+        $DMBROWSER "$url$q" &
     end
     disown
 end

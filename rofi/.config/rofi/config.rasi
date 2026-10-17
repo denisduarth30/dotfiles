@@ -1,12 +1,12 @@
 configuration {
-    font: "CommitMono Nerd Font 15";
+    font: "CaskaydiaCove Nerd Font 15";
     modi: "drun,web:rofi-web.fish,run:rofi-run.fish,ani-cli:rofi-ani-cli.fish,powermenu:rofi-powermenu.fish";
     display-drun: "";
     display-window: "🪟​";
     display-filebrowser: "🗂️​";
     display-web: "󰖟";
     display-run: "";
-    display-combi: "";
+    display-combi: "";
     display-ani-cli: "";
     show-icons: true;
     drun-display-format: "{icon} {name}";

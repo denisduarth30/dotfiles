@@ -1,8 +1,8 @@
 /* /home/denis/dotfiles/rofi/.config/rofi/themes/dark-theme.rasi */
 
 * {
-    bg0:               #1a1a1a;
-    bg1:               #272727;
+    bg0:               #0f0f0f;
+    bg1:               #1f1f1f;
     fg0:               #e0e0e0;
     fg-dim:            #555555;
     placeholder-color: #505050;

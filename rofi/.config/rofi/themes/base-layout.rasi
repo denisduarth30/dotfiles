@@ -1,17 +1,17 @@
 /* base-layout.rasi */
 
 * {
-    window-width:       480px;
-    font:               "Hack Nerd Font 17";
+    window-width:       500px;
+    font:               "CaskaydiaCove Nerd Font 17";
     background-color:   transparent;
     text-color:         @fg0;
     margin:             0;
     padding:            0;
     spacing:            0;
-    radius:             11px;
-    element-radius:     8px;
-    element-spacing:    3px;
-    main-font:          "Hack Nerd Font 12.5";
+    radius:             8px;
+    element-radius:     5px;
+    element-spacing:    1px;
+    main-font:          "CaskaydiaCove Nerd Font 13";
 }
 
 window {
@@ -26,7 +26,7 @@ window {
 }
 
 inputbar {
-    spacing:            15px 15px 0px 23px;
+    spacing:            15px 15px 0px 22px;
     padding:            13px;
     background-color:   @bg0;
     border-radius:      @radius;
@@ -59,7 +59,7 @@ listview {
     scrollbar:                      false;
     layout:                         vertical;
     spacing:                        @element-spacing;
-    padding:                        4px 7px 7px 7px;
+    padding:                        0px 10px 10px 13px;
     border-radius:                  @radius;
 }
 
